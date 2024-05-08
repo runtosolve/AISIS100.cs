@@ -1,4 +1,8 @@
-﻿namespace AISIS100;
+﻿using System.ComponentModel.Design;
+using System.Xml;
+
+namespace AISIS100;
+
 
 public class ChapterECompression
 {
@@ -47,6 +51,26 @@ public class ChapterECompression
         return lambdal;
     }
 
+    public static double EqE4__1(double py)
+    {
+        var pnd = py;
+        return pnd;
+    }
+    
+    public static double EqE4__2(double pcrd, double py)
+    {
+        var pnd = (1 - 0.25 * Math.Pow(pcrd/py, 0.6))*Math.Pow((pcrd/py), 0.6)*py;
+        return pnd;
+    }
+
+    
+    public static double EqE4__5(double py, double pcrd)
+    {
+        var lambdad = Math.Sqrt(py / pcrd);
+        return lambdad;
+    }
+    
+ 
 
     public static double EqE4__9(double ag, double fy)
     {
@@ -65,7 +89,85 @@ public class ChapterECompression
         } 
         return EqE2__3(lambdac, fy);
       }
+
+    public static double GlobalBucklingStrengthPne(double fy, double fcre, double ag)
+    {
+        var fn = GlobalBucklingStressFn(fy, fcre);
+
+        var pne = EqE2__1(ag, fn);
+
+        return pne;
+    }
     
+    public static double AvailableGlobalBucklingStrengthPne(double pne, string designMethod)
+    {
+   
+        Dictionary<string, double> SafetyResistanceFactors =  
+            new Dictionary<string, double>();
+        
+            SafetyResistanceFactors.Add("ASD", 1.80);
+            SafetyResistanceFactors.Add("LRFD", 0.85);
+            SafetyResistanceFactors.Add("LSD", 0.80);
+
+            var aPne = AISIS100.Core.CalculateAvailableStrength(pne, designMethod, SafetyResistanceFactors);
+
+            return aPne;
+    }
+
     
+    public static double LocalBucklingStrengthPnl(double pne, double pcrl)
+    {
+        var lambdal = EqE3_2__3(pne, pcrl);
+
+        if (lambdal <= 0.776) 
+        {
+            var pnl = EqE3_2__1(pne);
+            return pnl;
+        } 
+        return EqE3_2__2(pcrl, pne);
+    }
+
+    public static double AvailableLocalBucklingStrengthPne(double pnl, string designMethod)
+    {
+   
+        Dictionary<string, double> SafetyResistanceFactors =  
+            new Dictionary<string, double>();
+        
+        SafetyResistanceFactors.Add("ASD", 1.80);
+        SafetyResistanceFactors.Add("LRFD", 0.85);
+        SafetyResistanceFactors.Add("LSD", 0.80);
+
+        var aPnl = AISIS100.Core.CalculateAvailableStrength(pnl, designMethod, SafetyResistanceFactors);
+
+        return aPnl;
+    }
+
+    public static double DistortionalBucklingStrengthPnd(double py, double pcrd)
+    {
+        var lambdad = EqE4__5(py, pcrd);
+
+        if (lambdad <= 0.561) 
+        {
+            var pnd = EqE4__1(py);
+            return pnd;
+        } 
+        return EqE4__2(pcrd, py);
+    }
     
+    public static double AvailableDistortionalBucklingStrengthPne(double pnd, string designMethod)
+    {
+   
+        Dictionary<string, double> SafetyResistanceFactors =  
+            new Dictionary<string, double>();
+        
+        SafetyResistanceFactors.Add("ASD", 1.80);
+        SafetyResistanceFactors.Add("LRFD", 0.85);
+        SafetyResistanceFactors.Add("LSD", 0.80);
+
+        var aPnd = AISIS100.Core.CalculateAvailableStrength(pnd, designMethod, SafetyResistanceFactors);
+
+        return aPnd;
+    }
+
+
 }
