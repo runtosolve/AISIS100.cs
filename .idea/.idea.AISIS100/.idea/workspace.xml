@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83e464d7-c6b6-4fa3-9a78-4eabccb40bde" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AISIS100.sln" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AISIS100/AISIS100.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AISIS100/Appendix2Buckling.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AISIS100/ChapterECompression.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AISIS100/ChapterFFlexure.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AISIS100/DirectStrengthMethod.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/global.json" afterDir="false" />
-    </list>
+    <list default="true" id="83e464d7-c6b6-4fa3-9a78-4eabccb40bde" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,6 +12,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/Downloads/USStrengthsCalculationsService.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 8
@@ -58,7 +52,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1714666556674</updated>
-      <workItem from="1714666558359" duration="6504000" />
+      <workItem from="1714666558359" duration="17539000" />
     </task>
     <servers />
   </component>

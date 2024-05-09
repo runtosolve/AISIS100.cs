@@ -4,7 +4,7 @@ using System.Xml;
 namespace AISIS100;
 
 
-public class ChapterECompression
+public static class ChapterECompression
 {
     
     public static double EqE2__1(double ag, double fn)
@@ -127,7 +127,7 @@ public class ChapterECompression
         return EqE3_2__2(pcrl, pne);
     }
 
-    public static double AvailableLocalBucklingStrengthPne(double pnl, string designMethod)
+    public static double AvailableLocalBucklingStrengthPnl(double pnl, string designMethod)
     {
    
         Dictionary<string, double> SafetyResistanceFactors =  

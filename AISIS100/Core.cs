@@ -1,5 +1,5 @@
 namespace AISIS100;
-public class Core
+public static class Core
 {
 
     public static double CalculateAvailableStrength(double rn, string designMethod, Dictionary<string,double> safetyResistanceFactors)
