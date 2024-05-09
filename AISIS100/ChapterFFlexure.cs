@@ -152,7 +152,7 @@ public static class ChapterFFlexure
         return EqF4__2(mcrd, my);
     }
     
-    public static double AvailableDistortionalBucklingStrengthPne(double mnd, string designMethod)
+    public static double AvailableDistortionalBucklingStrengthMnd(double mnd, string designMethod)
     {
    
         Dictionary<string, double> SafetyResistanceFactors =  
