@@ -34,10 +34,10 @@ public static class Appendix2Buckling
         return pcre;
     }
     
-    public static double Eq2_3_1_1_2__1(double beta, double pex, double pt)
+    public static double Eq2_3_1_2_1__1(double Cb, double ro, double pey, double pt)
     {
-        var pcre = (1 / (2 * beta)) * ((pex + pt) - Math.Sqrt(Math.Pow(pex + pt, 2.0) - 4 * beta * pex * pt));
-        return pcre;
+        var mcre = Cb * ro * Math.Sqrt(pey + pt);
+        return mcre;
     }
     
 }
