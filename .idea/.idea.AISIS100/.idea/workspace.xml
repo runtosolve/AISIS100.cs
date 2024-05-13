@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83e464d7-c6b6-4fa3-9a78-4eabccb40bde" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AISIS100.sln" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AISIS100/AISIS100.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AISIS100/Appendix2Buckling.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AISIS100/ChapterECompression.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AISIS100/ChapterFFlexure.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AISIS100/DirectStrengthMethod.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/global.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AISIS100/docs/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AISIS100/AISIS100.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AISIS100/AISIS100.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,9 +16,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/AISIS100/Appendix2Buckling.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2fv15lBSIDFCc7mKAMft8qzb4mi" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -34,7 +32,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "set-up-nuget",
+    "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -44,9 +43,9 @@
   },
   "keyToStringList": {
     "rider.external.source.directories": [
-      "/Users/crismoen/Library/Application Support/JetBrains/Rider2024.1/resharper-host/DecompilerCache",
-      "/Users/crismoen/Library/Application Support/JetBrains/Rider2024.1/resharper-host/SourcesCache",
-      "/Users/crismoen/Library/Application Support/Symbols/src"
+      "C:\\Users\\cding\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache",
+      "C:\\Users\\cding\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache",
+      "C:\\Users\\cding\\AppData\\Local\\Symbols\\src"
     ]
   }
 }]]></component>
@@ -59,12 +58,14 @@
       <option name="presentableId" value="Default" />
       <updated>1714666556674</updated>
       <workItem from="1714666558359" duration="6504000" />
+      <workItem from="1715241173523" duration="2006000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
