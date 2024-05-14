@@ -25,9 +25,11 @@ public class DirectStrengthMethod
 
     }
     
-    public static double FlexuralStrength(string designMethod, double fy, double sfc, double sf, double fcre, double mcrl, double mcrd)
+    public static double FlexuralStrength(string designMethod, double fy, double sfc, double sf, double mcre, double mcrl, double mcrd)
     {
 
+        var fcre = mcre / sfc;
+        
         var my = AISIS100.ChapterFFlexure.EqF2_1__2(sf, fy);
 
         var mne = AISIS100.ChapterFFlexure.GlobalBucklingStrengthMne(fy, fcre, sfc, my);
