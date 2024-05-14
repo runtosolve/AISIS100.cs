@@ -154,7 +154,7 @@ public static class ChapterECompression
         return EqE4__2(pcrd, py);
     }
     
-    public static double AvailableDistortionalBucklingStrengthPne(double pnd, string designMethod)
+    public static double AvailableDistortionalBucklingStrengthPnd(double pnd, string designMethod)
     {
    
         Dictionary<string, double> SafetyResistanceFactors =  
