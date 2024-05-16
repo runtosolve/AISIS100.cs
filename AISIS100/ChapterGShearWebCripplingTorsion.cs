@@ -1,3 +1,5 @@
+using System.Collections.Immutable;
+
 namespace AISIS100;
 
 public class ChapterGShearWebCripplingTorsion
@@ -69,8 +71,74 @@ public class ChapterGShearWebCripplingTorsion
     
     public static double EqG2_3__2(double e, double kv, double mu, double h, double t)
     {
-        var fcr = (Math.Pow(Math.PI, 2) * e * kv) / (12 * (1 - Math.Pow(mu, 2)) * Math.Pow(h / t, 2));
+        var fcr = (Math.Pow(Math.PI, 2.0) * e * kv) / (12 * (1 - Math.Pow(mu, 2.0)) * Math.Pow(h / t, 2.0));
         return fcr;
+    }
+    
+    public static double EqG5__1(double c, double t, double fy, double theta, double cr, double r, double cn, double n, double ch,
+        double h)
+
+    {
+        var pn = c * Math.Pow(t, 2.0) * fy * Math.Sin(theta * (2 * Math.PI) / 360.0) * (1 - cr * Math.Sqrt(r / t)) *
+                 (1 + cn * Math.Sqrt(n / t)) * (1 - ch * Math.Sqrt(h / t));
+
+        return pn;
+    }
+
+    public static (double c, double cr, double cn, double ch) TableG5__2(string supportAndFlangeConditions, string loadCases, double r, double t)
+
+    {
+
+        if (supportAndFlangeConditions == "Fastened to Support")
+        {
+            if (loadCases == "One-Flange Loading or Reaction, End")
+            {
+
+                if ((r / t) <= 9)
+
+                {
+                    var c = 4.0;
+                    var cr = 0.14;
+                    var cn = 0.35;
+                    var ch = 0.02;
+
+                    return (c, cr, cn, ch);
+                }
+                
+            }
+        }
+
+        return (Double.NaN, Double.NaN, Double.NaN, Double.NaN);
+    }
+    
+    
+    public static double AvailableWebCripplingStrengthPn(double t, double fy, double theta, double r, double n, double h, string supportAndFlangeConditions, string loadCases, string designMethod)
+    {
+
+        (double c, double cr, double cn, double ch) = TableG5__2(supportAndFlangeConditions, loadCases, r, t);
+
+        var pn = EqG5__1(c, t, fy, theta, cr, r, cn, n, ch, h);
+        
+        if (supportAndFlangeConditions == "Fastened to Support")
+        {
+            if (loadCases == "One-Flange Loading or Reaction, End")
+            {
+
+                Dictionary<string, double> safetyResistanceFactors =  
+                    new Dictionary<string, double>();
+        
+                safetyResistanceFactors.Add("ASD", 1.75);
+                safetyResistanceFactors.Add("LRFD", 0.85);
+                safetyResistanceFactors.Add("LSD", 0.75);
+                
+                var aPn = AISIS100.Core.CalculateAvailableStrength(pn, designMethod, safetyResistanceFactors);
+
+                return aPn;
+                
+            }
+        }
+
+        return Double.NaN;
     }
     
 }
