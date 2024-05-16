@@ -115,7 +115,7 @@ public class ChapterGShearWebCripplingTorsion
     public static double AvailableWebCripplingStrengthPn(double t, double fy, double theta, double r, double n, double h, string supportAndFlangeConditions, string loadCases, string designMethod)
     {
 
-        (double c, double cr, double cn, double ch) = TableG5__2(supportAndFlangeConditions, loadCases, r, t);
+        (var c, var cr, var cn, var ch) = TableG5__2(supportAndFlangeConditions, loadCases, r, t);
 
         var pn = EqG5__1(c, t, fy, theta, cr, r, cn, n, ch, h);
         
