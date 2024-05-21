@@ -36,8 +36,15 @@ public class ChapterGShearWebCripplingTorsion
         return aw;
     }
     
-    public static double ShearStrengthVn(double vcr, double vy)
+    public static double ShearStrengthVn(double aw, double fy, double e, double kv, double mu, double h, double t)
     {
+
+        var vy = EqG2_1__4(aw, fy);
+
+        var fcr = EqG2_3__2(e, kv, mu, h, t);
+
+        var vcr = EqG2_3__1(aw, fcr);
+        
         var lambdav = EqG2_1__3(vy, vcr);
 
         if (lambdav <= 0.587) 
