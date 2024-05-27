@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AISIS100", "AISIS100\AISIS100.csproj", "{7D67E19B-7266-4A22-B8B5-A9DFBCBC5422}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AISIS100.Tests", "AISIS100.Tests\AISIS100.Tests.csproj", "{A5CF6DDC-2606-4289-B182-0048C8B07145}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{7D67E19B-7266-4A22-B8B5-A9DFBCBC5422}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D67E19B-7266-4A22-B8B5-A9DFBCBC5422}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D67E19B-7266-4A22-B8B5-A9DFBCBC5422}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5CF6DDC-2606-4289-B182-0048C8B07145}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5CF6DDC-2606-4289-B182-0048C8B07145}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5CF6DDC-2606-4289-B182-0048C8B07145}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5CF6DDC-2606-4289-B182-0048C8B07145}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
