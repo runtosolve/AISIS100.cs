@@ -92,13 +92,13 @@ public class ChapterGShearWebCripplingTorsion
         return pn;
     }
 
-    public static (double c, double cr, double cn, double ch) TableG5__2(string supportAndFlangeConditions, string loadCases, double r, double t)
+    public static (double c, double cr, double cn, double ch) TableG5__2(SupportAndFlangeConditions supportAndFlangeConditions, LoadCases loadCases, double r, double t)
 
     {
 
-        if (supportAndFlangeConditions == "Fastened to Support")
+        if (supportAndFlangeConditions == SupportAndFlangeConditions.FastenedToSupport)
         {
-            if (loadCases == "One-Flange Loading or Reaction, End")
+            if (loadCases == LoadCases.OneFlangeLoadingOrReactionEnd)
             {
 
                 if ((r / t) <= 9)
@@ -119,16 +119,16 @@ public class ChapterGShearWebCripplingTorsion
     }
     
     
-    public static double AvailableWebCripplingStrengthPn(double t, double fy, double theta, double r, double n, double h, string supportAndFlangeConditions, string loadCases, string designMethod)
+    public static double AvailableWebCripplingStrengthPn(double t, double fy, double theta, double r, double n, double h, SupportAndFlangeConditions supportAndFlangeConditions, LoadCases loadCases, string designMethod)
     {
 
         (var c, var cr, var cn, var ch) = TableG5__2(supportAndFlangeConditions, loadCases, r, t);
 
         var pn = EqG5__1(c, t, fy, theta, cr, r, cn, n, ch, h);
         
-        if (supportAndFlangeConditions == "Fastened to Support")
+        if (supportAndFlangeConditions == SupportAndFlangeConditions.FastenedToSupport)
         {
-            if (loadCases == "One-Flange Loading or Reaction, End")
+            if (loadCases == LoadCases.OneFlangeLoadingOrReactionEnd)
             {
 
                 Dictionary<string, double> safetyResistanceFactors =  
@@ -147,5 +147,19 @@ public class ChapterGShearWebCripplingTorsion
 
         return Double.NaN;
     }
+
+    public enum SupportAndFlangeConditions
+    {
+        FastenedToSupport,
+        UnfastenedStiffenedOrPartiallyStiffenedFlanges,
+        UnfastenedUnstiffenedFlanges,
+    }
     
+    public enum LoadCases
+    {
+        OneFlangeLoadingOrReactionEnd,
+        OneFlangeLoadingOrReactionInterior,
+        TwoFlangeLoadingOrReactionEnd,
+        TwoFlangeLoadingOrReactionInterior,
+    }
 }
