@@ -59,7 +59,7 @@ public static class Appendix2Buckling
     
     public static double Eq2_3_1_2_1__1(double Cb, double ro, double pey, double pt)
     {
-        var mcre = Cb * ro * Math.Sqrt(pey + pt);
+        var mcre = Cb * ro * Math.Sqrt(pey * pt);
         return mcre;
     }
     
