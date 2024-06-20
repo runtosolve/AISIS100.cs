@@ -7,99 +7,99 @@ namespace AISIS100;
 public static class ChapterECompression
 {
     
-    public static double EqE2__1(double ag, double fn)
+    public static double EqE2__1(double Ag, double Fn)
     {
-        var pne = ag * fn;
-        return pne;
+        var Pne = Ag * Fn;
+        return Pne;
     }
     
-    public static double EqE2__2(double lambdac, double fy)
+    public static double EqE2__2(double Lambdac, double Fy)
     {
-        var fn = (Math.Pow(0.658, Math.Pow(lambdac, 2.0))) * fy;
-        return fn;
+        var Fn = (Math.Pow(0.658, Math.Pow(Lambdac, 2.0))) * Fy;
+        return Fn;
     }
     
-    public static double EqE2__3(double lambdac, double fy)
+    public static double EqE2__3(double Lambdac, double Fy)
     {
-        var fn = (0.877 / Math.Pow(lambdac, 2.0)) * fy;
-        return fn;
+        var Fn = (0.877 / Math.Pow(Lambdac, 2.0)) * Fy;
+        return Fn;
     }
     
-    public static double EqE2__4(double fy, double fcre)
+    public static double EqE2__4(double Fy, double Fcre)
     {
-        var lambda = Math.Sqrt(fy / fcre);
-        return lambda;
-    }
-
-    
-    public static double EqE3_2__1(double pne)
-    {
-        var pnl = pne;
-        return pnl;
-    }
-    
-    public static double EqE3_2__2(double pcrl, double pne)
-    {
-        var pnl = (1 - 0.15 * Math.Pow(pcrl/pne, 0.4))*Math.Pow((pcrl/pne), 0.4)*pne;
-        return pnl;
-    }
-    
-    
-    public static double EqE3_2__3(double pne, double pcrl)
-    {
-        var lambdal = Math.Sqrt(pne / pcrl);
-        return lambdal;
-    }
-
-    public static double EqE4__1(double py)
-    {
-        var pnd = py;
-        return pnd;
-    }
-    
-    public static double EqE4__2(double pcrd, double py)
-    {
-        var pnd = (1 - 0.25 * Math.Pow(pcrd/py, 0.6))*Math.Pow((pcrd/py), 0.6)*py;
-        return pnd;
+        var Lambda = Math.Sqrt(Fy / Fcre);
+        return Lambda;
     }
 
     
-    public static double EqE4__5(double py, double pcrd)
+    public static double EqE3_2__1(double Pne)
     {
-        var lambdad = Math.Sqrt(py / pcrd);
-        return lambdad;
+        var Pnl = Pne;
+        return Pnl;
+    }
+    
+    public static double EqE3_2__2(double Pcrl, double Pne)
+    {
+        var Pnl = (1 - 0.15 * Math.Pow(Pcrl/Pne, 0.4))*Math.Pow((Pcrl/Pne), 0.4)*Pne;
+        return Pnl;
+    }
+    
+    
+    public static double EqE3_2__3(double Pne, double Pcrl)
+    {
+        var Lambdal = Math.Sqrt(Pne / Pcrl);
+        return Lambdal;
+    }
+
+    public static double EqE4__1(double Py)
+    {
+        var Pnd = Py;
+        return Pnd;
+    }
+    
+    public static double EqE4__2(double Pcrd, double Py)
+    {
+        var Pnd = (1 - 0.25 * Math.Pow(Pcrd/Py, 0.6))*Math.Pow((Pcrd/Py), 0.6)*Py;
+        return Pnd;
+    }
+
+    
+    public static double EqE4__5(double Py, double Pcrd)
+    {
+        var Lambdad = Math.Sqrt(Py / Pcrd);
+        return Lambdad;
     }
     
  
 
-    public static double EqE4__9(double ag, double fy)
+    public static double EqE4__9(double Ag, double Fy)
     {
-        var py = ag * fy;
-        return py;
+        var Py = Ag * Fy;
+        return Py;
     }
 
-    public static double GlobalBucklingStressFn(double fy, double fcre)
+    public static double GlobalBucklingStressFn(double Fy, double Fcre)
     {
-        var lambdac = EqE2__4(fy, fcre);
+        var Lambdac = EqE2__4(Fy, Fcre);
 
-        if (lambdac <= 1.5) 
+        if (Lambdac <= 1.5) 
         {
-            var fn = EqE2__2(lambdac, fy);
-            return fn;
+            var Fn = EqE2__2(Lambdac, Fy);
+            return Fn;
         } 
-        return EqE2__3(lambdac, fy);
+        return EqE2__3(Lambdac, Fy);
       }
 
-    public static double GlobalBucklingStrengthPne(double fy, double fcre, double ag)
+    public static double GlobalBucklingStrengthPne(double Fy, double Fcre, double Ag)
     {
-        var fn = GlobalBucklingStressFn(fy, fcre);
+        var Fn = GlobalBucklingStressFn(Fy, Fcre);
 
-        var pne = EqE2__1(ag, fn);
+        var Pne = EqE2__1(Ag, Fn);
 
-        return pne;
+        return Pne;
     }
     
-    public static double AvailableGlobalBucklingStrengthPne(double pne, string designMethod)
+    public static double AvailableGlobalBucklingStrengthPne(double Pne, string designMethod)
     {
    
         Dictionary<string, double> SafetyResistanceFactors =  
@@ -109,25 +109,25 @@ public static class ChapterECompression
             SafetyResistanceFactors.Add("LRFD", 0.85);
             SafetyResistanceFactors.Add("LSD", 0.80);
 
-            var aPne = AISIS100.Core.CalculateAvailableStrength(pne, designMethod, SafetyResistanceFactors);
+            var aPne = AISIS100.Core.CalculateAvailableStrength(Pne, designMethod, SafetyResistanceFactors);
 
             return aPne;
     }
 
     
-    public static double LocalBucklingStrengthPnl(double pne, double pcrl)
+    public static double LocalBucklingStrengthPnl(double Pne, double Pcrl)
     {
-        var lambdal = EqE3_2__3(pne, pcrl);
+        var Lambdal = EqE3_2__3(Pne, Pcrl);
 
-        if (lambdal <= 0.776) 
+        if (Lambdal <= 0.776) 
         {
-            var pnl = EqE3_2__1(pne);
-            return pnl;
+            var Pnl = EqE3_2__1(Pne);
+            return Pnl;
         } 
-        return EqE3_2__2(pcrl, pne);
+        return EqE3_2__2(Pcrl, Pne);
     }
 
-    public static double AvailableLocalBucklingStrengthPnl(double pnl, string designMethod)
+    public static double AvailableLocalBucklingStrengthPnl(double Pnl, string designMethod)
     {
    
         Dictionary<string, double> SafetyResistanceFactors =  
@@ -137,24 +137,24 @@ public static class ChapterECompression
         SafetyResistanceFactors.Add("LRFD", 0.85);
         SafetyResistanceFactors.Add("LSD", 0.80);
 
-        var aPnl = AISIS100.Core.CalculateAvailableStrength(pnl, designMethod, SafetyResistanceFactors);
+        var aPnl = AISIS100.Core.CalculateAvailableStrength(Pnl, designMethod, SafetyResistanceFactors);
 
         return aPnl;
     }
 
-    public static double DistortionalBucklingStrengthPnd(double py, double pcrd)
+    public static double DistortionalBucklingStrengthPnd(double Py, double Pcrd)
     {
-        var lambdad = EqE4__5(py, pcrd);
+        var Lambdad = EqE4__5(Py, Pcrd);
 
-        if (lambdad <= 0.561) 
+        if (Lambdad <= 0.561) 
         {
-            var pnd = EqE4__1(py);
-            return pnd;
+            var Pnd = EqE4__1(Py);
+            return Pnd;
         } 
-        return EqE4__2(pcrd, py);
+        return EqE4__2(Pcrd, Py);
     }
     
-    public static double AvailableDistortionalBucklingStrengthPnd(double pnd, string designMethod)
+    public static double AvailableDistortionalBucklingStrengthPnd(double Pnd, string designMethod)
     {
    
         Dictionary<string, double> SafetyResistanceFactors =  
@@ -164,7 +164,7 @@ public static class ChapterECompression
         SafetyResistanceFactors.Add("LRFD", 0.85);
         SafetyResistanceFactors.Add("LSD", 0.80);
 
-        var aPnd = AISIS100.Core.CalculateAvailableStrength(pnd, designMethod, SafetyResistanceFactors);
+        var aPnd = AISIS100.Core.CalculateAvailableStrength(Pnd, designMethod, SafetyResistanceFactors);
 
         return aPnd;
     }
