@@ -7,9 +7,12 @@ namespace AISIS100;
 public static class ChapterECompression
 {
     
-    public static double EqE2__1(double Ag, double Fn)
+    public static double EqE2__1(double Ag, double Fn, Output? output = null)
     {
         var Pne = Ag * Fn;
+
+        output?.AddResult("Pne", Pne, "Eq.E2-1");
+        
         return Pne;
     }
     
@@ -70,31 +73,36 @@ public static class ChapterECompression
         return Lambdad;
     }
     
- 
-
+    
     public static double EqE4__9(double Ag, double Fy)
     {
         var Py = Ag * Fy;
         return Py;
     }
 
-    public static double GlobalBucklingStressFn(double Fy, double Fcre)
+    public static double GlobalBucklingStressFn(double Fy, double Fcre, Output? output = null)
     {
         var Lambdac = EqE2__4(Fy, Fcre);
+        output?.AddResult("Lambdac", Lambdac, "Eq.E2-4");
 
+        double Fn;
         if (Lambdac <= 1.5) 
         {
-            var Fn = EqE2__2(Lambdac, Fy);
+            Fn = EqE2__2(Lambdac, Fy);
+            output?.AddResult("Fn", Fn, "Eq.E2-2");
             return Fn;
-        } 
-        return EqE2__3(Lambdac, Fy);
-      }
+        }
+        Fn = EqE2__3(Lambdac, Fy);
+        output?.AddResult("Fn", 0, "Eq.E2-3");
+        return Fn;
+    }
 
-    public static double GlobalBucklingStrengthPne(double Fy, double Fcre, double Ag)
+    public static double GlobalBucklingStrengthPne(double Fy, double Fcre, double Ag, Output? output = null)
     {
-        var Fn = GlobalBucklingStressFn(Fy, Fcre);
+        var Fn = GlobalBucklingStressFn(Fy, Fcre, output);
 
         var Pne = EqE2__1(Ag, Fn);
+        output?.AddResult("Pne", Pne, "Eq.E2-1");
 
         return Pne;
     }
