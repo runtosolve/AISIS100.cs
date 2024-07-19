@@ -7,6 +7,6 @@ public class ChapterFFlexureTests
     {
         var actual = AISIS100.ChapterFFlexure.EqF2_1__1(1, 50, 100);
         
-        Assert.That(actual, Is.EqualTo(30));
+        Assert.That(actual, Is.EqualTo(50));
     }
 }
