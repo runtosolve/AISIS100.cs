@@ -2,103 +2,102 @@ namespace AISIS100;
 
 public static class ChapterFFlexure
 {
-    public static double EqF2_1__1(double sfc, double fn, double my)
+    public static double EqF2_1__1(double Sfc, double Fn, double My)
     {
-        var mne = Math.Min(sfc * fn, my);
-        return mne;
+        var Mne = Math.Min(Sfc * Fn, My);
+        return Mne;
     }
     
-    public static double EqF2_1__2(double sf, double fy)
+    public static double EqF2_1__2(double Sf, double Fy)
     {
-        var my = sf * fy;
-        return my;
+        var My = Sf * Fy;
+        return My;
     }
 
-    public static double EqF2_1__3(double fy)
+    public static double EqF2_1__3(double Fy)
     {
-        var fn = fy;
-        return fn;
+        var Fn = Fy;
+        return Fn;
     }
     
-    public static double EqF2_1__4(double fy, double fcre)
+    public static double EqF2_1__4(double Fy, double Fcre)
     {
-        var fn = 10.0 / 9.0 * fy * (1 - (10 * fy) / (36 * fcre));
-        return fn;
+        var Fn = 10.0 / 9.0 * Fy * (1 - (10 * Fy) / (36 * Fcre));
+        return Fn;
     }
     
-    public static double EqF2_1__5(double fcre)
+    public static double EqF2_1__5(double Fcre)
     {
-        var fn = fcre;
-        return fn;
+        var Fn = Fcre;
+        return Fn;
     }
     
-    public static double EqF3_2__1(double mne)
+    public static double EqF3_2__1(double Mne)
     {
-        var mnl = mne;
-        return mnl;
-    }
-
-    public static double EqF3_2__2(double mcrl, double mne, double my)
-    {
-
-        var mneBar = Math.Min(mne, my);
-        var mnl = (1 - 0.15 * Math.Pow((mcrl / mne), 0.4)) * Math.Pow(mcrl / mneBar, 0.4) * mneBar;
-        return mnl;
+        var Mnl = Mne;
+        return Mnl;
     }
 
-    public static double EqF3_2__3(double mne, double my, double mcrl)
+    public static double EqF3_2__2(double Mcrl, double Mne, double My)
     {
-        var mneBar = Math.Min(mne, my);
-        var lambdal = Math.Sqrt(mneBar/mcrl);
-        return lambdal;
+        var MneBar = Math.Min(Mne, My);
+        var Mnl = (1 - 0.15 * Math.Pow((Mcrl / Mne), 0.4)) * Math.Pow(Mcrl / MneBar, 0.4) * MneBar;
+        return Mnl;
+    }
+
+    public static double EqF3_2__3(double Mne, double My, double Mcrl)
+    {
+        var MneBar = Math.Min(Mne, My);
+        var Lambdal = Math.Sqrt(MneBar / Mcrl);
+        return Lambdal;
     }
     
     
-    public static double EqF4__1(double my)
+    public static double EqF4__1(double My)
     {
-        var mnd = my;
-        return mnd;
+        var Mnd = My;
+        return Mnd;
     }
     
-    public static double EqF4__2(double mcrd, double my)
+    public static double EqF4__2(double Mcrd, double My)
     {
-        var mnd = (1 - 0.22 * Math.Pow(mcrd/my, 0.5))*Math.Pow((mcrd/my), 0.5)*my;
-        return mnd;
+        var Mnd = (1 - 0.22 * Math.Pow(Mcrd / My, 0.5)) * Math.Pow((Mcrd / My), 0.5) * My;
+        return Mnd;
     }
     
     
-    public static double EqF4__5(double my, double mcrd)
+    public static double EqF4__5(double My, double Mcrd)
     {
-        var lambdad = Math.Sqrt(my/mcrd);
-        return lambdad;
+        var Lambdad = Math.Sqrt(My / Mcrd);
+        return Lambdad;
     }
     
-    public static double GlobalBucklingStressFn(double fy, double fcre)
+    public static double GlobalBucklingStressFn(double Fy, double Fcre)
     {
 
-        if (fcre >= 2.78 * fy) 
+        if (Fcre >= 2.78 * Fy) 
         {
-            var fn = EqF2_1__3(fy);
-            return fn;
+            var Fn = EqF2_1__3(Fy);
+            return Fn;
         } 
-        if ((fcre < 2.78 * fy) & (fcre > 0.56 * fy))
+        if ((Fcre < 2.78 * Fy) & (Fcre > 0.56 * Fy))
         {
-            var fn = EqF2_1__4(fy, fcre);
-            return fn;
+            var Fn = EqF2_1__4(Fy, Fcre);
+            return Fn;
         }
-        return EqF2_1__5(fcre);
+        return EqF2_1__5(Fcre);
     }
     
-    public static double GlobalBucklingStrengthMne(double fy, double fcre, double sfc, double my)
+    public static double GlobalBucklingStrengthMne(double Fy, double Fcre, double Sfc, double My)
     {
-        var fn = GlobalBucklingStressFn(fy, fcre);
+        var Fn = GlobalBucklingStressFn(Fy, Fcre);
 
-        var mne = EqF2_1__1(sfc, fn, my);
+        var Mne = EqF2_1__1(Sfc, Fn, My);
 
-        return mne;
+        return Mne;
     }
     
-    public static double AvailableGlobalBucklingStrengthMne(double mne, string designMethod)
+    public static double AvailableGlobalBucklingStrengthMne(double Mne, string designMethod)
     {
    
         Dictionary<string, double> SafetyResistanceFactors =  
@@ -108,24 +107,24 @@ public static class ChapterFFlexure
         SafetyResistanceFactors.Add("LRFD", 0.90);
         SafetyResistanceFactors.Add("LSD", 0.90);
 
-        var aMne = AISIS100.Core.CalculateAvailableStrength(mne, designMethod, SafetyResistanceFactors);
+        var aMne = AISIS100.Core.CalculateAvailableStrength(Mne, designMethod, SafetyResistanceFactors);
 
         return aMne;
     }
     
-    public static double LocalBucklingStrengthMnl(double mne, double my, double mcrl)
+    public static double LocalBucklingStrengthMnl(double Mne, double My, double Mcrl)
     {
-        var lambdal = EqF3_2__3(mne, my, mcrl);
+        var Lambdal = EqF3_2__3(Mne, My, Mcrl);
 
-        if (lambdal <= 0.776) 
+        if (Lambdal <= 0.776) 
         {
-            var mnl = EqF3_2__1(mne);
-            return mnl;
+            var Mnl = EqF3_2__1(Mne);
+            return Mnl;
         } 
-        return EqF3_2__2(mcrl, mne, my);
+        return EqF3_2__2(Mcrl, Mne, My);
     }
 
-    public static double AvailableLocalBucklingStrengthMnl(double mnl, string designMethod)
+    public static double AvailableLocalBucklingStrengthMnl(double Mnl, string designMethod)
     {
    
         Dictionary<string, double> SafetyResistanceFactors =  
@@ -135,24 +134,24 @@ public static class ChapterFFlexure
         SafetyResistanceFactors.Add("LRFD", 0.90);
         SafetyResistanceFactors.Add("LSD", 0.90);
 
-        var aMnl = AISIS100.Core.CalculateAvailableStrength(mnl, designMethod, SafetyResistanceFactors);
+        var aMnl = AISIS100.Core.CalculateAvailableStrength(Mnl, designMethod, SafetyResistanceFactors);
 
         return aMnl;
     }
     
-    public static double DistortionalBucklingStrengthMnd(double my, double mcrd)
+    public static double DistortionalBucklingStrengthMnd(double My, double Mcrd)
     {
-        var lambdad = EqF4__5(my, mcrd);
+        var lambdad = EqF4__5(My, Mcrd);
 
         if (lambdad <= 0.561) 
         {
-            var mnd = EqF4__1(my);
+            var mnd = EqF4__1(My);
             return mnd;
         } 
-        return EqF4__2(mcrd, my);
+        return EqF4__2(Mcrd, My);
     }
     
-    public static double AvailableDistortionalBucklingStrengthMnd(double mnd, string designMethod)
+    public static double AvailableDistortionalBucklingStrengthMnd(double Mnd, string designMethod)
     {
    
         Dictionary<string, double> SafetyResistanceFactors =  
@@ -162,7 +161,7 @@ public static class ChapterFFlexure
         SafetyResistanceFactors.Add("LRFD", 0.90);
         SafetyResistanceFactors.Add("LSD", 0.90);
 
-        var aMnd = AISIS100.Core.CalculateAvailableStrength(mnd, designMethod, SafetyResistanceFactors);
+        var aMnd = AISIS100.Core.CalculateAvailableStrength(Mnd, designMethod, SafetyResistanceFactors);
 
         return aMnd;
     }
