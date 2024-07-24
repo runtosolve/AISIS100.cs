@@ -13,6 +13,17 @@ public class ChapterECompressionTests
     }
     
     [Test]
+    public void EqE4__9_IsCorrect()
+    {
+        var output = new Output();
+        var Py = AISIS100.ChapterECompression.EqE4__9(0.4037758076, 50.0, output);
+        
+        Assert.That(Math.Abs(1 - output.GetResult("Py").Value / 20.19), Is.LessThan(0.01));
+        Assert.That(output.GetResult("Py").Equation, Is.EqualTo("Eq.E4-9"));
+    }
+
+    
+    [Test]
     public void GlobalBucklingStressFn_IsCorrect()
     {
         var output = new Output();
