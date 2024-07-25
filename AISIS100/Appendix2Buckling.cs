@@ -4,63 +4,71 @@ namespace AISIS100;
 
 public static class Appendix2Buckling
 {
-    public static double Eq2_3_1__1(double e, double ix, double kx, double lx)
+    public static double Eq2_3_1__1(double E, double Ix, double kx, double Lx, Output? output = null)
     {
-        var pex = Math.Pow(Math.PI, 2.0) * e * ix / Math.Pow((kx * lx), 2.0);
-        return pex;
+        var Pex = Math.Pow(Math.PI, 2.0) * E * Ix / Math.Pow((kx * Lx), 2.0);
+        output?.AddResult("Pex", Pex, "Eq.2.3.1-1");
+        return Pex;
     }
     
-    public static double Eq2_3_1__2(double e, double iy, double ky, double ly)
+    public static double Eq2_3_1__2(double E, double Iy, double ky, double Ly, Output? output = null)
     {
-        var pey = Math.Pow(Math.PI, 2.0) * e * iy / Math.Pow((ky * ly), 2.0);
-        return pey;
+        var Pey = Math.Pow(Math.PI, 2.0) * E * Iy / Math.Pow((ky * Ly), 2.0);
+        output?.AddResult("Pey", Pey, "Eq.2.3.1-2");
+        return Pey;
     }
     
-    public static double Eq2_3_1__3(double ro, double g, double j, double e, double cw, double kt, double lt)
+    public static double Eq2_3_1__3(double ro, double G, double J, double E, double Cw, double kt, double Lt, Output? output = null)
     {
-        var pt = 1 / Math.Pow(ro, 2.0) * (g * j + (Math.Pow(Math.PI, 2.0) * e * cw) / Math.Pow(kt * lt, 2.0));
-        return pt;
+        var Pt = 1 / Math.Pow(ro, 2.0) * (G * J + (Math.Pow(Math.PI, 2.0) * E * Cw) / Math.Pow(kt * Lt, 2.0));
+        output?.AddResult("Pt", Pt, "Eq.2.3.1-3");
+        return Pt;
     }
     
-    public static double Eq2_3_1__4(double xo, double ro, double kt, double lt, double kx, double lx)
+    public static double Eq2_3_1__4(double xo, double ro, double kt, double Lt, double kx, double Lx, Output? output = null)
     {
-        var beta = 1 - Math.Pow((xo / ro), 2.0) * Math.Pow((kt*lt)/(kx*lx), 2.0);
+        var beta = 1 - Math.Pow((xo / ro), 2.0) * Math.Pow((kt * Lt)/(kx * Lx), 2.0);
+        output?.AddResult("beta", beta, "Eq.2.3.1-4");
         return beta;
     }
 
-    public static double Eq2_3_1_1_1__1(double e, double i, double k, double l)
+    public static double Eq2_3_1_1_1__1(double E, double I, double k, double L, Output? output = null)
     {
-        var pcre = (Math.Pow(Math.PI, 2.0) * e * i) / Math.Pow((k * l), 2.0);
-        return pcre;
+        var Pcre = (Math.Pow(Math.PI, 2.0) * E * I) / Math.Pow((k * L), 2.0);
+        output?.AddResult("Pcre", Pcre, "Eq.2.3.1.1.1-1");
+        return Pcre;
     }
 
-    public static double Eq2_3_1_1_2__1(double beta, double pex, double pt)
+    public static double Eq2_3_1_1_2__1(double beta, double Pex, double Pt, Output? output = null)
     {
-        var pcre = 1.0 / (2.0 * beta) * ((pex + pt) - Math.Sqrt(Math.Pow((pex + pt), 2.0) - 4 * beta * pex * pt));
-        return pcre;
+        var Pcre = 1.0 / (2.0 * beta) * ((Pex + Pt) - Math.Sqrt(Math.Pow((Pex + Pt), 2.0) - 4 * beta * Pex * Pt));
+        output?.AddResult("Pcre", Pcre, "Eq.2.3.1.1.2-1");
+        return Pcre;
     }
 
-    public static double Section2_3_1_1_2(double e, double g, double ix, double iy, double j, double cw, double xo, double ro, double kx, double lx, double ky, double ly, double kt, double lt)
+    public static double Section2_3_1_1_2(double E, double G, double Ix, double Iy, double J, double Cw, double xo, double ro, double kx, double Lx, double ky, double Ly, double kt, double Lt, Output? output = null)
     {
-        var pex = Eq2_3_1__1(e, ix, kx, lx);
-        var pey = Eq2_3_1__2(e, iy, ky, ly);
-        var pt = Eq2_3_1__3(ro, g, j, e, cw, kt, lt);
+        var Pex = Eq2_3_1__1(E, Ix, kx, Lx, output);
+        var Pey = Eq2_3_1__2(E, Iy, ky, Ly, output);
+        var Pt = Eq2_3_1__3(ro, G, J, E, Cw, kt, Lt, output);
 
-        var beta = Eq2_3_1__4(xo, ro, kt, lt, kx, lx);
+        var beta = Eq2_3_1__4(xo, ro, kt, Lt, kx, Lx, output);
 
-        var pcreft = Eq2_3_1_1_2__1(beta, pex, pt);
+        var Pcreft = Eq2_3_1_1_2__1(beta, Pex, Pt, output);  //Hmmm, add output like this?
 
-        var pcre = Math.Min(Math.Min(pex, pey), pcreft);
+        var Pcre = Math.Min(Math.Min(Pex, Pey), Pcreft);
+        output?.AddResult("Pcre", Pcre, "Section2.3.1.1-2");  //Hmmmmm, wondering if I should do this
 
-        return pcre;
+        return Pcre;
 
     }
     
     
-    public static double Eq2_3_1_2_1__1(double Cb, double ro, double pey, double pt)
+    public static double Eq2_3_1_2_1__1(double Cb, double ro, double Pey, double Pt, Output? output = null)
     {
-        var mcre = Cb * ro * Math.Sqrt(pey * pt);
-        return mcre;
+        var Mcre = Cb * ro * Math.Sqrt(Pey * Pt);
+        output?.AddResult("Mcre", Mcre, "Eq.2.3.1.2.1-1");
+        return Mcre;
     }
     
 }

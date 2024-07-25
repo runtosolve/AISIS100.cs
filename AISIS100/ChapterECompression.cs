@@ -112,7 +112,7 @@ public static class ChapterECompression
 
     public static double GlobalBucklingStressFn(double Fy, double Fcre, Output? output = null)
     {
-        var Lambdac = EqE2__4(Fy, Fcre);
+        var Lambdac = EqE2__4(Fy, Fcre, output);
         output?.AddResult("Lambdac", Lambdac, "Eq.E2-4");
 
         double Fn;
