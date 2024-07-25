@@ -17,8 +17,10 @@ public class ChapterECompressionTests
     {
         var output = new Output();
         var Py = AISIS100.ChapterECompression.EqE4__9(0.4037758076, 50.0, output);
-        
-        Assert.That(Math.Abs(1 - output.GetResult("Py").Value / 20.19), Is.LessThan(0.01));
+
+        var expected = 20.19;
+        var actual = Py;
+        Assert.That(actual, Is.EqualTo(expected).Within(1.0).Percent);
         Assert.That(output.GetResult("Py").Equation, Is.EqualTo("Eq.E4-9"));
     }
 
