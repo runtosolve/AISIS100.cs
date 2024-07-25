@@ -54,10 +54,10 @@ public static class Appendix2Buckling
 
         var beta = Eq2_3_1__4(xo, ro, kt, Lt, kx, Lx, output);
 
-        var Pcreft = Eq2_3_1_1_2__1(beta, Pex, Pt, output);  //Hmmm, add output like this?
+        var Pcreft = Eq2_3_1_1_2__1(beta, Pex, Pt, output);  
 
         var Pcre = Math.Min(Math.Min(Pex, Pey), Pcreft);
-        output?.AddResult("Pcre", Pcre, "Section2.3.1.1-2");  //Hmmmmm, wondering if I should do this
+        output?.AddResult("Pcre", Pcre, "Section2.3.1.1-2"); 
 
         return Pcre;
 

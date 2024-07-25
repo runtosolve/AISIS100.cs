@@ -113,17 +113,14 @@ public static class ChapterECompression
     public static double GlobalBucklingStressFn(double Fy, double Fcre, Output? output = null)
     {
         var Lambdac = EqE2__4(Fy, Fcre, output);
-        output?.AddResult("Lambdac", Lambdac, "Eq.E2-4");
-
+       
         double Fn;
         if (Lambdac <= 1.5) 
         {
-            Fn = EqE2__2(Lambdac, Fy);
-            output?.AddResult("Fn", Fn, "Eq.E2-2");
+            Fn = EqE2__2(Lambdac, Fy, output);
             return Fn;
         }
-        Fn = EqE2__3(Lambdac, Fy);
-        output?.AddResult("Fn", 0, "Eq.E2-3");
+        Fn = EqE2__3(Lambdac, Fy, output);
         return Fn;
     }
 
@@ -131,8 +128,7 @@ public static class ChapterECompression
     {
         var Fn = GlobalBucklingStressFn(Fy, Fcre, output);
 
-        var Pne = EqE2__1(Ag, Fn);
-        output?.AddResult("Pne", Pne, "Eq.E2-1");
+        var Pne = EqE2__1(Ag, Fn, output);
 
         return Pne;
     }
@@ -155,19 +151,16 @@ public static class ChapterECompression
     
     public static double LocalBucklingStrengthPnl(double Pne, double Pcrl, Output? output = null)
     {
-        var Lambdal = EqE3_2__3(Pne, Pcrl);
-        output?.AddResult("Lambdal", Lambdal, "Eq.E3.2-3");
+        var Lambdal = EqE3_2__3(Pne, Pcrl, output);
 
         double Pnl;
-        if (Lambdal <= 0.776) 
+        if (Lambdal <= 0.776)
         {
-            Pnl = EqE3_2__1(Pne);
-            output?.AddResult("Pnl", Pnl, "Eq.E3.2-1");
+            Pnl = EqE3_2__1(Pne, output);
             
             return Pnl;
         } 
-        Pnl = EqE3_2__2(Pcrl, Pne);
-        output?.AddResult("Pnl", Pnl, "Eq.E3.2-2");
+        Pnl = EqE3_2__2(Pcrl, Pne, output);
         return Pnl;
 
     }
@@ -189,18 +182,15 @@ public static class ChapterECompression
 
     public static double DistortionalBucklingStrengthPnd(double Py, double Pcrd, Output? output = null)
     {
-        var Lambdad = EqE4__5(Py, Pcrd);
-        output?.AddResult("Lambdad", Lambdad, "Eq.E4-5");
+        var Lambdad = EqE4__5(Py, Pcrd, output);
 
         double Pnd;
         if (Lambdad <= 0.561) 
         {
-            Pnd = EqE4__1(Py);
-            output?.AddResult("Pnd", Pnd, "Eq.E4-1");
+            Pnd = EqE4__1(Py, output);
             return Pnd;
         } 
-        Pnd = EqE4__2(Pcrd, Py);
-        output?.AddResult("Pnd", Pnd, "Eq.E4-2");
+        Pnd = EqE4__2(Pcrd, Py, output);
         return Pnd;
     }
     
