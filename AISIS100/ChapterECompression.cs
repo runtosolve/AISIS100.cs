@@ -209,4 +209,17 @@ public static class ChapterECompression
         return aPnd;
     }
     
+    
+    public static double SectionE1(double aPne, double aPnl, double aPnd, Output? output = null)
+    {
+        var aPn = Math.Min(Math.Min(aPne, aPnl), aPnd);
+        
+        output?.AddResult("aPn", aPn, "Section E1");
+        
+        return aPn;
+    }
+    
+    
+    
+    
 }

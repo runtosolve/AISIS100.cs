@@ -4,6 +4,14 @@ namespace AISIS100;
 
 public static class Appendix2Buckling
 {
+
+    public static double Eq2_3_1_1__1(double Pcre, double Ag, Output? output = null)
+    {
+        var Fcre = Pcre / Ag;
+        output?.AddResult("Fcre", Fcre, "Eq.2.3.1.1-1");
+        return Fcre;
+    }
+    
     public static double Eq2_3_1__1(double E, double Ix, double kx, double Lx, Output? output = null)
     {
         var Pex = Math.Pow(Math.PI, 2.0) * E * Ix / Math.Pow((kx * Lx), 2.0);
@@ -62,6 +70,15 @@ public static class Appendix2Buckling
         return Pcre;
 
     }
+    
+    
+    public static double Eq2_3_1_2__1(double Mcre, double Sfc, Output? output = null)
+    {
+        var Fcre = Mcre / Sfc;
+        output?.AddResult("Fcre", Fcre, "Eq.2.3.1.2-1");
+        return Fcre;
+    }
+
     
     
     public static double Eq2_3_1_2_1__1(double Cb, double ro, double Pey, double Pt, Output? output = null)

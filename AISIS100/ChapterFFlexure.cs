@@ -186,4 +186,13 @@ public static class ChapterFFlexure
         return aMnd;
     }
     
+    public static double SectionF1(double aMne, double aMnl, double aMnd, Output? output = null)
+    {
+        var aMn = Math.Min(Math.Min(aMne, aMnl), aMnd);
+        
+        output?.AddResult("aMn", aMn, "Section F1");
+        
+        return aMn;
+    }
+    
 }
