@@ -89,18 +89,15 @@ public static class ChapterFFlexure
         double Fn;
         if (Fcre >= 2.78 * Fy) 
         {
-            Fn = EqF2_1__3(Fy);
-            output?.AddResult("Fn", Fn, "Eq.F2.1-3");
+            Fn = EqF2_1__3(Fy, output);
             return Fn;
         } 
         if ((Fcre < 2.78 * Fy) & (Fcre > 0.56 * Fy))
         {
-            Fn = EqF2_1__4(Fy, Fcre);
-            output?.AddResult("Fn", Fn, "Eq.F2.1-4");
+            Fn = EqF2_1__4(Fy, Fcre, output);
             return Fn;
         }
-        Fn = EqF2_1__5(Fcre);
-        output?.AddResult("Fn", Fn, "Eq.F2.1-5");
+        Fn = EqF2_1__5(Fcre, output);
             
         return Fn;
     }
@@ -109,8 +106,7 @@ public static class ChapterFFlexure
     {
         var Fn = GlobalBucklingStressFn(Fy, Fcre, output);
 
-        var Mne = EqF2_1__1(Sfc, Fn, My);
-        output?.AddResult("Mne", Mne, "Eq.F2.1-1");
+        var Mne = EqF2_1__1(Sfc, Fn, My, output);
 
         return Mne;
     }
@@ -132,18 +128,15 @@ public static class ChapterFFlexure
     
     public static double LocalBucklingStrengthMnl(double Mne, double My, double Mcrl, Output? output = null)
     {
-        var Lambdal = EqF3_2__3(Mne, My, Mcrl);
-        output?.AddResult("Lambdal", Mne, "Eq.F3.2-3");
+        var Lambdal = EqF3_2__3(Mne, My, Mcrl, output);
 
         double Mnl;
         if (Lambdal <= 0.776) 
         {
-            Mnl = EqF3_2__1(Mne);
-            output?.AddResult("Mnl", Mnl, "Eq.F3.2-1");
+            Mnl = EqF3_2__1(Mne, output);
             return Mnl;
         }
-        Mnl = EqF3_2__2(Mcrl, Mne, My);
-        output?.AddResult("Mnl", Mnl, "Eq.F3.2-2");
+        Mnl = EqF3_2__2(Mcrl, Mne, My, output);
         
         return Mnl;
     }
@@ -165,17 +158,15 @@ public static class ChapterFFlexure
     
     public static double DistortionalBucklingStrengthMnd(double My, double Mcrd, Output? output = null)
     {
-        var Lambdad = EqF4__5(My, Mcrd);
+        var Lambdad = EqF4__5(My, Mcrd, output);
 
         double Mnd;
         if (Lambdad <= 0.561) 
         {
-            Mnd = EqF4__1(My);
-            output?.AddResult("Mnd", Mnd, "Eq.F4-1");
+            Mnd = EqF4__1(My, output);
             return Mnd;
         } 
-        Mnd = EqF4__2(Mcrd, My);
-        output?.AddResult("Mnd", Mnd, "Eq.F4-2");
+        Mnd = EqF4__2(Mcrd, My, output);
 
         return Mnd;
     }
