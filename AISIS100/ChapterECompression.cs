@@ -36,11 +36,11 @@ public static class ChapterECompression
     
     public static double EqE2__4(double Fy, double Fcre, Output? output = null)
     {
-        var Lambda = Math.Sqrt(Fy / Fcre);
+        var Lambdac = Math.Sqrt(Fy / Fcre);
         
-        output?.AddResult("Lambda", Lambda, "Eq.E2-4");
+        output?.AddResult("Lambdac", Lambdac, "Eq.E2-4");
         
-        return Lambda;
+        return Lambdac;
     }
 
     
