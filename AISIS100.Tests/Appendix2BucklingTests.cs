@@ -63,7 +63,7 @@ public class Appendix2BucklingTests
         var actual = Pcre;
         
         Assert.That(actual, Is.EqualTo(expected).Within(1.0).Percent);
-        Assert.That(output.GetResult("Pcre").Equation, Is.EqualTo("Eq2.3.1.1.2-1"));
+        Assert.That(output.GetResult("Pcre").Equation, Is.EqualTo("Eq.2.3.1.1.2-1"));
     }
 
     
