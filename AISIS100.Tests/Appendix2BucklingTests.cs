@@ -66,6 +66,18 @@ public class Appendix2BucklingTests
         Assert.That(output.GetResult("Pcre").Equation, Is.EqualTo("Eq.2.3.1.1.2-1"));
     }
 
+    [Test]
+    public void Eq2_3_1_2_1__1_IsCorrect()
+    {
+        var output = new Output();
+        var Mcre = AISIS100.Appendix2Buckling.Eq2_3_1_2_1__1(1.0, 2.260629921, 11.10575584, 13.77183741, output);
+        var expected = 27.95757352;
+        var actual = Mcre;
+        
+        Assert.That(actual, Is.EqualTo(expected).Within(1.0).Percent);
+        Assert.That(output.GetResult("Mcre").Equation, Is.EqualTo("Eq.2.3.1.2.1-1"));
+    }
+
     
     
 }
