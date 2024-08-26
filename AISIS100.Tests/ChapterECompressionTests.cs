@@ -270,6 +270,27 @@ public class ChapterECompressionTests
         var aPnLRFDexpected = 5.99;
         
         Assert.That(aPnLRFD, Is.EqualTo(aPnLRFDexpected).Within(1.0).Percent);
+        
+        var aPneASD = AISIS100.ChapterECompression.AvailableGlobalBucklingStrengthPne(9.43, "ASD");
+        var aPnlASD = AISIS100.ChapterECompression.AvailableLocalBucklingStrengthPnl(7.04, "ASD");
+        var aPndASD = AISIS100.ChapterECompression.AvailableDistortionalBucklingStrengthPnd(8.09, "ASD");
+        
+        var aPnASD = AISIS100.ChapterECompression.SectionE1(aPneASD, aPnlASD, aPndASD);
+
+        var aPnASDexpected = 3.91;
+        
+        Assert.That(aPnASD, Is.EqualTo(aPnASDexpected).Within(1.0).Percent);
+        
+        var aPneLSD = AISIS100.ChapterECompression.AvailableGlobalBucklingStrengthPne(9.43, "LSD");
+        var aPnlLSD = AISIS100.ChapterECompression.AvailableLocalBucklingStrengthPnl(7.04, "LSD");
+        var aPndLSD = AISIS100.ChapterECompression.AvailableDistortionalBucklingStrengthPnd(8.09, "LSD");
+        
+        var aPnLSD = AISIS100.ChapterECompression.SectionE1(aPneLSD, aPnlLSD, aPndLSD);
+
+        var aPnLSDexpected = 5.64;
+        
+        Assert.That(aPnLSD, Is.EqualTo(aPnLSDexpected).Within(1.0).Percent);
+
   
        
     }
