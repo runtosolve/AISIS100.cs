@@ -257,6 +257,23 @@ public class ChapterECompressionTests
        
     }
     
+    [Test]
+    public void SectionE1_IsCorrect()
+    {
+        
+        var aPneLRFD = AISIS100.ChapterECompression.AvailableGlobalBucklingStrengthPne(9.43, "LRFD");
+        var aPnlLRFD = AISIS100.ChapterECompression.AvailableLocalBucklingStrengthPnl(7.04, "LRFD");
+        var aPndLRFD = AISIS100.ChapterECompression.AvailableDistortionalBucklingStrengthPnd(8.09, "LRFD");
+        
+        var aPnLRFD = AISIS100.ChapterECompression.SectionE1(aPneLRFD, aPnlLRFD, aPndLRFD);
+
+        var aPnLRFDexpected = 5.99;
+        
+        Assert.That(aPnLRFD, Is.EqualTo(aPnLRFDexpected).Within(1.0).Percent);
+  
+       
+    }
+    
 }
 
 
