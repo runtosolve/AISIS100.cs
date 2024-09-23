@@ -64,6 +64,45 @@ public class ChapterFFlexureTests
     }
     
     [Test]
+    public void EqF3_2__1_IsCorrect()
+    {
+        var output = new Output();
+        var Mnl = AISIS100.ChapterFFlexure.EqF3_2__1(24.03, output);
+        
+        var expected = 24.03;
+        var actual = Mnl;
+        Assert.That(actual, Is.EqualTo(expected).Within(1.0).Percent);
+        Assert.That(output.GetResult("Mnl").Equation, Is.EqualTo("Eq.F3.2-1"));
+    }
+    
+    
+    [Test]
+    public void EqF3_2__2_IsCorrect()
+    {
+        var output = new Output();
+        var Mnl = AISIS100.ChapterFFlexure.EqF3_2__2(84.92, 24.03, 31.47, output);
+        
+        var expected = 29.92;
+        var actual = Mnl;
+        Assert.That(actual, Is.EqualTo(expected).Within(1.0).Percent);
+        Assert.That(output.GetResult("Mnl").Equation, Is.EqualTo("Eq.F3.2-2"));
+    }
+    
+    
+    [Test]
+    public void EqF3_2__3_IsCorrect()
+    {
+        var output = new Output();
+        var Lambdal = AISIS100.ChapterFFlexure.EqF3_2__3(24.03, 31.47, 84.92, output);
+        
+        var expected = 0.53;
+        var actual = Lambdal;
+        Assert.That(actual, Is.EqualTo(expected).Within(1.0).Percent);
+        Assert.That(output.GetResult("Lambdal").Equation, Is.EqualTo("Eq.F3.2-3"));
+    }
+    
+    
+    [Test]
     public void GlobalBucklingStressFn_IsCorrect()
     {
         var output = new Output();
@@ -71,6 +110,18 @@ public class ChapterFFlexureTests
         
         var expected = 38.18;
         var actual = Fn;
+        Assert.That(actual, Is.EqualTo(expected).Within(1.0).Percent);
+      
+    }
+    
+    [Test]
+    public void LocalBucklingStressMnl_IsCorrect()
+    {
+        var output = new Output();
+        var Mnl = AISIS100.ChapterFFlexure.LocalBucklingStrengthMnl(24.03, 31.47, 84.92, output);
+        
+        var expected = 24.03;
+        var actual = Mnl;
         Assert.That(actual, Is.EqualTo(expected).Within(1.0).Percent);
       
     }
