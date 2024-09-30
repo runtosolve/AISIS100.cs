@@ -103,6 +103,47 @@ public class ChapterFFlexureTests
     
     
     [Test]
+    public void EqF4__1_IsCorrect()
+    {
+        var output = new Output();
+        var Mnd = AISIS100.ChapterFFlexure.EqF4__1(31.47, output);
+        
+        var expected = 31.47;
+        var actual = Mnd;
+        Assert.That(actual, Is.EqualTo(expected).Within(1.0).Percent);
+        Assert.That(output.GetResult("Mnd").Equation, Is.EqualTo("Eq.F4-1"));
+    }
+
+    [Test]
+    public void EqF4__2_IsCorrect()
+    {
+        var output = new Output();
+        var Mnd = AISIS100.ChapterFFlexure.EqF4__2(28.47, 31.47, output);
+        
+        var expected = 23.67;
+        var actual = Mnd;
+        Assert.That(actual, Is.EqualTo(expected).Within(1.0).Percent);
+        Assert.That(output.GetResult("Mnd").Equation, Is.EqualTo("Eq.F4-2"));
+    }
+
+    
+    
+    [Test]
+    public void EqF4__5_IsCorrect()
+    {
+        var output = new Output();
+        var Lambdad = AISIS100.ChapterFFlexure.EqF4__5(31.47, 28.47, output);
+        
+        var expected = 1.05;
+        var actual = Lambdad;
+        Assert.That(actual, Is.EqualTo(expected).Within(1.0).Percent);
+        Assert.That(output.GetResult("Lambdad").Equation, Is.EqualTo("Eq.F4-5"));
+    }
+    
+    
+    
+    
+    [Test]
     public void GlobalBucklingStressFn_IsCorrect()
     {
         var output = new Output();
@@ -125,5 +166,19 @@ public class ChapterFFlexureTests
         Assert.That(actual, Is.EqualTo(expected).Within(1.0).Percent);
       
     }
+    
+    [Test]
+    public void DistortionalBucklingStrengthMnd_IsCorrect()
+    {
+        var output = new Output();
+        var Mnd = AISIS100.ChapterFFlexure.DistortionalBucklingStrengthMnd(31.47, 28.47, output);
+        
+        var expected = 23.67;
+        var actual = Mnd;
+        Assert.That(actual, Is.EqualTo(expected).Within(1.0).Percent);
+      
+    }
+    
+    
     
 }
