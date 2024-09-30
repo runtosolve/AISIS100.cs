@@ -179,6 +179,20 @@ public class ChapterFFlexureTests
       
     }
     
+    [Test]
+    public void SectionF1_IsCorrect()
+    {
+        var output = new Output();
+        var aMn = AISIS100.ChapterFFlexure.SectionF1(21.63, 21.63, 21.30, output);
+        
+        var expected = 21.30;
+        var actual = aMn;
+        Assert.That(actual, Is.EqualTo(expected).Within(1.0).Percent);
+      
+    }
+    
+    
+    
     
     
 }
