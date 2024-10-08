@@ -1,4 +1,4 @@
-![NuGet](https://img.shields.io/nuget/v/AISIS100.cs.svg)
+[![NuGet version (AISIS100.cs)](https://img.shields.io/nuget/v/AISIS100.cs.svg)](https://www.nuget.org/packages/AISIS100.cs/)
 
 # AISIS100.cs
 
