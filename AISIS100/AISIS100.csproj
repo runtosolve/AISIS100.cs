@@ -4,11 +4,13 @@
         <PackageId>AISIS100.cs</PackageId>
         <Version>0.4.4</Version>
         <Authors>RunToSolve</Authors>
+        <Company>RunToSolve</Company>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     </PropertyGroup>
     
     <ItemGroup>
