@@ -1,0 +1,47 @@
+name: Publish .NET Package
+
+on:
+  release:
+    types:  # only publish when a release is published or edited
+      - published
+      - edited
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up .NET SDK
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.x'  # Use the version of the .NET SDK that you're using
+
+      # Extract version from GitHub release tag (assuming the tag is something like v1.0.0)
+      - name: Extract version from GitHub release tag
+        id: extract_version
+        run: |
+          VERSION=$(echo "${{ github.event.release.tag_name }}" | sed 's/^v//')
+          echo "VERSION=$VERSION"
+          echo "::set-output name=VERSION::$VERSION"
+
+      # Restore NuGet packages
+      - name: Restore dependencies
+        run: dotnet restore AISIS100/AISIS100.csproj
+
+      # Build the project
+      - name: Build the project
+        run: dotnet build AISIS100/AISIS100.csproj --configuration Release --no-restore
+
+      # Pack the project to generate the NuGet package
+      - name: Pack NuGet package
+        run: dotnet pack AISIS100/AISIS100.csproj --configuration Release --no-build --output ./nupkgs /p:PackageVersion=${{ steps.extract_version.outputs.VERSION }}
+
+      # Publish to NuGet.org
+      - name: Publish to NuGet
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}  # Use the NuGet API key from GitHub Secrets
+        run: dotnet nuget push ./nupkgs/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json
