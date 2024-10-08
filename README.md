@@ -1,3 +1,5 @@
+![NuGet](https://img.shields.io/nuget/v0.4.5/AISIS100.cs .svg)
+
 # AISIS100.cs
 
 This is an unofficial .NET API for AISIS100 Specification (American Iron and Steel Institute Specification for the Design of Cold-Formed Steel Structural Members).
