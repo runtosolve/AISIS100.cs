@@ -38,3 +38,4 @@ var Mnd = AISIS100.ChapterFFlexure.EqF4__2(Mcrd, My, output);
 
 The `output` parameter is an instance of `Output` class that contains the intermediate calculations and the final result with references to the Specification.
 You can use `GetResult(string key)` method retrieve the all the intermediate results and look up the references in the Specification.
+
