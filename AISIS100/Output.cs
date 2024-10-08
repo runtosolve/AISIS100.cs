@@ -1,5 +1,7 @@
 namespace AISIS100;
 
+using System.Collections.Generic;
+
 public class Output
 {
     private Dictionary<string, Result> _data = new();
