@@ -4,17 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-    - AISIS100/docs/**
-    - index.md
-    - .github/workflows/docfx-gh-pages
-  pull_request:
-    branches:
-      - main
-    paths:
-    - AISIS100/docs/**
-    - index.md
-    - .github/workflows/docfx-gh-pages
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
