@@ -2,9 +2,9 @@ name: Publish .NET Package
 
 on:
   release:
-    types:  # only publish when a release is published or edited
-      - published
-      - edited
+    types: 
+      - published  # This triggers the workflow when a new release is published
+      - edited  
 
 jobs:
   publish:
