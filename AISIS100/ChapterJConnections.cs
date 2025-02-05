@@ -1,7 +1,125 @@
 namespace AISIS100;
 
+/// <summary>
+/// AISI S100 Chapter J equations for calculating welded, bolted, and screw-fastened connection strength
+/// </summary>
 public class ChapterJConnections
 {
+    /// <summary>
+    /// Calculate nominal single shear connection strength limited by tilting
+    /// </summary>
+    /// <param name="t2">Thickness of ply not in contact with screw head or washer</param>
+    /// <param name="d">Nominal screw diameter</param>
+    /// <param name="Fu2">Tensile strength of member not in contact with screw head or washer</param>
+    /// <param name="output">Container for nominal strength and equation number label</param>
+    /// <returns></returns>
+    public static double EqJ4_3_1__1(double t2, double d, double Fu2, Output? output = null)
+    {
+        var Pnv = 4.2 * Math.Sqrt(Math.Pow(t2, 3) * d) * Fu2;
+        output?.AddResult("Pnv", Pnv, "Eq.J4.3.1-1");
+        return Pnv;
+    }
+    
+    /// <summary>
+    /// Calculate nominal single shear connection strength limited by bearing on ply in contact with fastener head
+    /// </summary>
+    /// <param name="t1">Thickness of ply in contact with screw head or washer</param>
+    /// <param name="d">Nominal screw diameter</param>
+    /// <param name="Fu1">Tensile strength of member in contact with screw head or washer</param>
+    /// <param name="output">Container for nominal strength and equation number label</param>
+    /// <returns></returns>
+    public static double EqJ4_3_1__2(double t1, double d, double Fu1, Output? output = null)
+    {
+        var Pnv = 2.7 * t1 * d * Fu1;
+        output?.AddResult("Pnv", Pnv, "Eq.J4.3.1-2");
+        return Pnv;
+    }
+    
+    /// <summary>
+    /// Calculate nominal single shear connection strength limited by bearing on ply not in contact with fastener head
+    /// </summary>
+    /// <param name="t2">Thickness of ply not in contact with screw head or washer</param>
+    /// <param name="d">Nominal screw diameter</param>
+    /// <param name="Fu2">Tensile strength of member not in contact with screw head or washer</param>
+    /// <param name="output">Container for nominal strength and equation number label</param>
+    /// <returns></returns>
+    public static double EqJ4_3_1__3(double t2, double d, double Fu2, Output? output = null)
+    {
+        var Pnv = 2.7 * t2 * d * Fu2;
+        output?.AddResult("Pnv", Pnv, "Eq.J4.3.1-3");
+        return Pnv;
+    }
+    
+    /// <summary>
+    /// Calculate nominal single shear connection strength limited by bearing on ply in contact with fastener head
+    /// </summary>
+    /// <param name="t1">Thickness of ply in contact with screw head or washer</param>
+    /// <param name="d">Nominal screw diameter</param>
+    /// <param name="Fu1">Tensile strength of member in contact with screw head or washer</param>
+    /// <param name="output">Container for nominal strength and equation number label</param>
+    /// <returns></returns>
+    public static double EqJ4_3_1__4(double t1, double d, double Fu1, Output? output = null)
+    {
+        var Pnv = 2.7 * t1 * d * Fu1;
+        output?.AddResult("Pnv", Pnv, "Eq.J4.3.1-4");
+        return Pnv;
+    }
+    
+    /// <summary>
+    /// Calculate nominal single shear connection strength limited by bearing on ply not in contact with fastener head
+    /// </summary>
+    /// <param name="t2">Thickness of ply not in contact with screw head or washer</param>
+    /// <param name="d">Nominal screw diameter</param>
+    /// <param name="Fu2">Tensile strength of member not in contact with screw head or washer</param>
+    /// <param name="output">Container for nominal strength and equation number label</param>
+    /// <returns></returns>
+    public static double EqJ4_3_1__5(double t2, double d, double Fu2, Output? output = null)
+    {
+        var Pnv = 2.7 * t2 * d * Fu2;
+        output?.AddResult("Pnv", Pnv, "Eq.J4.3.1-5");
+        return Pnv;
+    }
+
+
+    public static double SingleShearConnectionStrengthTiltingBearing(double t1, double t2, double Fu1, double Fu2, double d, Output? output = null)
+    {
+
+        if ((t2 / t1) > 1.0 && (t2 / t1) < 2.5)
+        {
+            var Pnv1 = EqJ4_3_1__1(t2, d, Fu2, output);
+            var Pnv2 = EqJ4_3_1__2(t1, d, Fu1, output);
+            var Pnv3 = EqJ4_3_1__3(t2, d, Fu2, output);
+            var Pnv123= Math.Min(Math.Min(Pnv1, Pnv2), Pnv3);
+            
+            var Pnv4 = EqJ4_3_1__4(t1, d, Fu1, output);
+            var Pnv5 = EqJ4_3_1__5(t2, d, Fu2, output);
+            var Pnv45= Math.Min(Pnv4, Pnv5);
+
+            var slope = (Pnv45 - Pnv123) / (2.5 - 1.0);
+            var Pnv = Pnv123 + slope * (t2 / t1 - 1.0);
+            return Pnv;
+        }
+        if ((t2 / t1) <= 1.0)
+        {
+            var Pnv1 = EqJ4_3_1__1(t2, d, Fu2, output);
+            var Pnv2 = EqJ4_3_1__2(t1, d, Fu1, output);
+            var Pnv3 = EqJ4_3_1__3(t2, d, Fu2, output);
+            var Pnv = Math.Min(Math.Min(Pnv1, Pnv2), Pnv3);
+            return Pnv;
+        }
+
+        if ((t2 / t1) >= 2.5)
+        {
+            var Pnv4 = EqJ4_3_1__4(t1, d, Fu1, output);
+            var Pnv5 = EqJ4_3_1__5(t2, d, Fu2, output);
+            var Pnv = Math.Min(Pnv4, Pnv5);
+            return Pnv;
+
+        }
+        
+    }
+    
+    
     public static double EqJ4_4_1__1(double tc, double d, double Fu2, string units, Output? output = null)
     {
 
@@ -42,6 +160,10 @@ public class ChapterJConnections
         return dPrimew;
         
     }
+    
+    
+
+
     
     
     public static double AvailablePulloutStrength(double Pnot, string designMethod, Output? output = null)
