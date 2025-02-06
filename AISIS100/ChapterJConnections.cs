@@ -6,7 +6,7 @@ namespace AISIS100;
 public class ChapterJConnections
 {
     /// <summary>
-    /// Calculate nominal single shear connection strength limited by tilting
+    /// Calculate nominal single shear screw connection strength limited by tilting
     /// </summary>
     /// <param name="t2">Thickness of ply not in contact with screw head or washer</param>
     /// <param name="d">Nominal screw diameter</param>
@@ -21,7 +21,7 @@ public class ChapterJConnections
     }
     
     /// <summary>
-    /// Calculate nominal single shear connection strength limited by bearing on ply in contact with fastener head
+    /// Calculate nominal single shear screw connection strength limited by bearing on ply in contact with fastener head
     /// </summary>
     /// <param name="t1">Thickness of ply in contact with screw head or washer</param>
     /// <param name="d">Nominal screw diameter</param>
@@ -36,7 +36,7 @@ public class ChapterJConnections
     }
     
     /// <summary>
-    /// Calculate nominal single shear connection strength limited by bearing on ply not in contact with fastener head
+    /// Calculate nominal single shear screw connection strength limited by bearing on ply not in contact with fastener head
     /// </summary>
     /// <param name="t2">Thickness of ply not in contact with screw head or washer</param>
     /// <param name="d">Nominal screw diameter</param>
@@ -51,7 +51,7 @@ public class ChapterJConnections
     }
     
     /// <summary>
-    /// Calculate nominal single shear connection strength limited by bearing on ply in contact with fastener head
+    /// Calculate nominal single shear screw connection strength limited by bearing on ply in contact with fastener head
     /// </summary>
     /// <param name="t1">Thickness of ply in contact with screw head or washer</param>
     /// <param name="d">Nominal screw diameter</param>
@@ -66,7 +66,7 @@ public class ChapterJConnections
     }
     
     /// <summary>
-    /// Calculate nominal single shear connection strength limited by bearing on ply not in contact with fastener head
+    /// Calculate nominal single shear screw connection strength limited by bearing on ply not in contact with fastener head
     /// </summary>
     /// <param name="t2">Thickness of ply not in contact with screw head or washer</param>
     /// <param name="d">Nominal screw diameter</param>
@@ -80,8 +80,17 @@ public class ChapterJConnections
         return Pnv;
     }
 
-
-    public static double SingleShearConnectionStrengthTiltingBearing(double t1, double t2, double Fu1, double Fu2, double d, Output? output = null)
+    /// <summary>
+    /// Calculate nominal single shear screw connection strength limited by tilting and bearing
+    /// </summary>
+    /// <param name="t1">Thickness of ply in contact with screw head or washer</param>
+    /// <param name="t2">Thickness of ply not in contact with screw head or washer</param>
+    /// <param name="Fu1">Tensile strength of member in contact with screw head or washer</param>
+    /// <param name="Fu2">Tensile strength of member not in contact with screw head or washer</param>
+    /// <param name="d">Nominal screw diameter</param>
+    /// <param name="output">Container for nominal strength and equation number label</param>
+    /// <returns></returns>
+    public static double SingleShearScrewConnectionStrengthTiltingBearing(double t1, double t2, double Fu1, double Fu2, double d, Output? output = null)
     {
 
         if ((t2 / t1) > 1.0 && (t2 / t1) < 2.5)
@@ -96,28 +105,92 @@ public class ChapterJConnections
             var Pnv45= Math.Min(Pnv4, Pnv5);
 
             var slope = (Pnv45 - Pnv123) / (2.5 - 1.0);
-            var Pnv = Pnv123 + slope * (t2 / t1 - 1.0);
-            return Pnv;
+            var Pnvtb = Pnv123 + slope * (t2 / t1 - 1.0);
+            return Pnvtb;
         }
-        if ((t2 / t1) <= 1.0)
+        else if ((t2 / t1) <= 1.0)
         {
             var Pnv1 = EqJ4_3_1__1(t2, d, Fu2, output);
             var Pnv2 = EqJ4_3_1__2(t1, d, Fu1, output);
             var Pnv3 = EqJ4_3_1__3(t2, d, Fu2, output);
-            var Pnv = Math.Min(Math.Min(Pnv1, Pnv2), Pnv3);
-            return Pnv;
+            var Pnvtb = Math.Min(Math.Min(Pnv1, Pnv2), Pnv3);
+            return Pnvtb;
         }
 
-        if ((t2 / t1) >= 2.5)
+        else //((t2 / t1) >= 2.5)
         {
             var Pnv4 = EqJ4_3_1__4(t1, d, Fu1, output);
             var Pnv5 = EqJ4_3_1__5(t2, d, Fu2, output);
-            var Pnv = Math.Min(Pnv4, Pnv5);
-            return Pnv;
+            var Pnvtb = Math.Min(Pnv4, Pnv5);
+            return Pnvtb;
 
         }
         
     }
+    /// <summary>
+    /// Calculate available single shear screw connection strength limited by tilting and bearing
+    /// </summary>
+    /// <param name="Pnvtb">Nominal single shear screw connection strength limited by tilting and bearing</param>
+    /// <param name="designMethod">ASD, LRFD, or LSD</param>
+    /// <param name="output">Container for nominal strength and equation number label</param>
+    /// <returns></returns>
+    public static double AvailableSingleShearScrewConnectionStrengthTiltingBearing(double Pnvtb, string designMethod, Output? output = null)
+
+    {
+        
+        Dictionary<string, double> safetyResistanceFactors =  
+            new Dictionary<string, double>();
+            
+        safetyResistanceFactors.Add("ASD", 2.80);
+        safetyResistanceFactors.Add("LRFD", 0.55);
+        safetyResistanceFactors.Add("LSD", 0.45);
+        
+        var aPnvtb = AISIS100.Core.CalculateAvailableStrength(Pnvtb, designMethod, safetyResistanceFactors, output);
+
+        return aPnvtb;
+
+    }
+    
+    /// <summary>
+    /// Calculate available screw shear rupture strength
+    /// </summary>
+    /// <param name="Pnvs">Nominal screw shear rupture strength, usually determined by test</param>
+    /// <param name="designMethod">ASD, LRFD, or LSD</param>
+    /// <param name="output">Container for nominal strength and equation number label</param>
+    /// <returns></returns>
+    public static double AvailableScrewConnectionStrengthShear(double Pnvs, string designMethod, Output? output = null)
+
+    {
+        
+        Dictionary<string, double> safetyResistanceFactors =  
+            new Dictionary<string, double>();
+            
+        safetyResistanceFactors.Add("ASD", 3.00);
+        safetyResistanceFactors.Add("LRFD", 0.50);
+        safetyResistanceFactors.Add("LSD", 0.40);
+        
+        var aPnvs = AISIS100.Core.CalculateAvailableStrength(Pnvs, designMethod, safetyResistanceFactors, output);
+
+        return aPnvs;
+
+    }
+    
+    /// <summary>
+    /// Calculate available single shear screw connection strength considering tilting and bearing and screw shear rupture.
+    /// </summary>
+    /// <param name="aPnvtb">Available single shear screw connection strength limited by tilting and bearing</param>
+    /// <param name="aPnvs">Available screw shear rupture strength</param>
+    /// <param name="output">Container for nominal strength and equation number label</param>
+    /// <returns></returns>
+    public static double AvailableSingleShearScrewConnectionStrength(double aPnvtb, double aPnvs, Output? output = null)
+
+    {
+
+        var aPnv = Math.Min(aPnvtb, aPnvs);
+        return aPnv;
+
+    }
+    
     
     
     public static double EqJ4_4_1__1(double tc, double d, double Fu2, string units, Output? output = null)
