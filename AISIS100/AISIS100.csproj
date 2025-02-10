@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <PackageId>AISIS100.cs</PackageId>
-        <Version>0.4.4</Version>
+        <Version>0.4.6</Version>
         <Authors>RunToSolve</Authors>
         <Company>RunToSolve</Company>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>

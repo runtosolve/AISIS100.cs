@@ -12,6 +12,7 @@ on:
       - toc.yml
       - docfx.json
       - .github/workflows/docfx-gh-pages.yml
+  workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
