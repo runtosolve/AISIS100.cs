@@ -12,7 +12,7 @@ public class ChapterJConnections
     /// <param name="d">Nominal screw diameter</param>
     /// <param name="Fu2">Tensile strength of member not in contact with screw head or washer</param>
     /// <param name="output">Container for nominal strength and equation number label</param>
-    /// <returns></returns>
+    /// <returns>Pnv - nominal single shear screw connection strength limited by tilting</returns>
     public static double EqJ4_3_1__1(double t2, double d, double Fu2, Output? output = null)
     {
         var Pnv = 4.2 * Math.Sqrt(Math.Pow(t2, 3) * d) * Fu2;
@@ -27,7 +27,7 @@ public class ChapterJConnections
     /// <param name="d">Nominal screw diameter</param>
     /// <param name="Fu1">Tensile strength of member in contact with screw head or washer</param>
     /// <param name="output">Container for nominal strength and equation number label</param>
-    /// <returns></returns>
+    /// <returns>Pnv - nominal single shear screw connection strength limited by bearing on ply in contact with fastener head</returns>
     public static double EqJ4_3_1__2(double t1, double d, double Fu1, Output? output = null)
     {
         var Pnv = 2.7 * t1 * d * Fu1;
@@ -42,7 +42,7 @@ public class ChapterJConnections
     /// <param name="d">Nominal screw diameter</param>
     /// <param name="Fu2">Tensile strength of member not in contact with screw head or washer</param>
     /// <param name="output">Container for nominal strength and equation number label</param>
-    /// <returns></returns>
+    /// <returns>Pnv - nominal single shear screw connection strength limited by bearing on ply not in contact with fastener head</returns>
     public static double EqJ4_3_1__3(double t2, double d, double Fu2, Output? output = null)
     {
         var Pnv = 2.7 * t2 * d * Fu2;
@@ -57,7 +57,7 @@ public class ChapterJConnections
     /// <param name="d">Nominal screw diameter</param>
     /// <param name="Fu1">Tensile strength of member in contact with screw head or washer</param>
     /// <param name="output">Container for nominal strength and equation number label</param>
-    /// <returns></returns>
+    /// <returns>Pnv - nominal single shear screw connection strength limited by bearing on ply in contact with fastener head</returns>
     public static double EqJ4_3_1__4(double t1, double d, double Fu1, Output? output = null)
     {
         var Pnv = 2.7 * t1 * d * Fu1;
@@ -72,7 +72,7 @@ public class ChapterJConnections
     /// <param name="d">Nominal screw diameter</param>
     /// <param name="Fu2">Tensile strength of member not in contact with screw head or washer</param>
     /// <param name="output">Container for nominal strength and equation number label</param>
-    /// <returns></returns>
+    /// <returns>Pnv - nominal single shear screw connection strength limited by bearing on ply not in contact with fastener head</returns>
     public static double EqJ4_3_1__5(double t2, double d, double Fu2, Output? output = null)
     {
         var Pnv = 2.7 * t2 * d * Fu2;
@@ -89,7 +89,7 @@ public class ChapterJConnections
     /// <param name="Fu2">Tensile strength of member not in contact with screw head or washer</param>
     /// <param name="d">Nominal screw diameter</param>
     /// <param name="output">Container for nominal strength and equation number label</param>
-    /// <returns></returns>
+    /// <returns>Pnvtb - nominal single shear screw connection strength limited by tilting and bearing</returns>
     public static double SingleShearScrewConnectionStrengthTiltingBearing(double t1, double t2, double Fu1, double Fu2, double d, Output? output = null)
     {
 
@@ -133,7 +133,7 @@ public class ChapterJConnections
     /// <param name="Pnvtb">Nominal single shear screw connection strength limited by tilting and bearing</param>
     /// <param name="designMethod">ASD, LRFD, or LSD</param>
     /// <param name="output">Container for nominal strength and equation number label</param>
-    /// <returns></returns>
+    /// <returns>aPnvtb - available single shear screw connection strength limited by tilting and bearing</returns>
     public static double AvailableSingleShearScrewConnectionStrengthTiltingBearing(double Pnvtb, string designMethod, Output? output = null)
 
     {
@@ -157,7 +157,7 @@ public class ChapterJConnections
     /// <param name="Pnvs">Nominal screw shear rupture strength, usually determined by test</param>
     /// <param name="designMethod">ASD, LRFD, or LSD</param>
     /// <param name="output">Container for nominal strength and equation number label</param>
-    /// <returns></returns>
+    /// <returns>aPnvs - available screw shear rupture strength</returns>
     public static double AvailableScrewConnectionStrengthShear(double Pnvs, string designMethod, Output? output = null)
 
     {
@@ -176,12 +176,12 @@ public class ChapterJConnections
     }
     
     /// <summary>
-    /// Calculate available single shear screw connection strength considering tilting and bearing and screw shear rupture.
+    /// Calculate available single shear screw connection strength considering tilting and bearing and screw shear rupture
     /// </summary>
     /// <param name="aPnvtb">Available single shear screw connection strength limited by tilting and bearing</param>
     /// <param name="aPnvs">Available screw shear rupture strength</param>
     /// <param name="output">Container for nominal strength and equation number label</param>
-    /// <returns></returns>
+    /// <returns>aPnv - available single shear screw connection strength considering tilting and bearing and screw shear rupture</returns>
     public static double AvailableSingleShearScrewConnectionStrength(double aPnvtb, double aPnvs, Output? output = null)
 
     {
@@ -192,7 +192,15 @@ public class ChapterJConnections
     }
     
     
-    
+    /// <summary>
+    /// Calculate the nominal pull-out strength of sheet per screw
+    /// </summary>
+    /// <param name="tc">Lesser of depth of penetration and thickness t2</param>
+    /// <param name="d">Nominal screw diameter</param>
+    /// <param name="Fu2">Tensile strength of member not in contact with screw head or washer</param>
+    /// <param name="units">Inches or millimeters</param>
+    /// <param name="output">Container for nominal strength and equation number label</param>
+    /// <returns>Pnot - nominal pull-out strength of sheet per screw</returns>
     public static double EqJ4_4_1__1(double tc, double d, double Fu2, string units, Output? output = null)
     {
 
@@ -213,7 +221,14 @@ public class ChapterJConnections
         
     }
 
-    
+    /// <summary>
+    /// Calculate the nominal pull-over strength of a sheet per screw
+    /// </summary>
+    /// <param name="t1">Thickness of member in contact with screw head or washer</param>
+    /// <param name="dPrimew">Effective pull-over resistance diameter</param>
+    /// <param name="Fu1">Tensile strength of member in contact with screw head or washer</param>
+    /// <param name="output">Container for nominal strength and equation number label</param>
+    /// <returns>Pnov - nominal pull-over strength of a sheet per screw/returns>
     public static double EqJ4_4_2__1(double t1, double dPrimew, double Fu1, Output? output = null)
     {
 
@@ -224,6 +239,15 @@ public class ChapterJConnections
         
     }
     
+    /// <summary>
+    /// Calculate effective pull-over resistance diameter
+    /// </summary>
+    /// <param name="dh">Screw head diameter or hex washer integral washer diameter</param>
+    /// <param name="tw">Steel washer thickness</param>
+    /// <param name="t1">Thickness of member in contact with screw head or washer</param>
+    /// <param name="dw">Steel washer diameter</param>
+    /// <param name="output">Container for nominal strength and equation number label</param>
+    /// <returns>dPrimew - effective pull-over resistance diameter</returns>
     public static double EqJ4_4_2__3(double dh, double tw, double t1, double dw, Output? output = null)
     {
 
@@ -238,7 +262,13 @@ public class ChapterJConnections
 
 
     
-    
+    /// <summary>
+    /// Calculate available pull-out strength of sheet per screw
+    /// </summary>
+    /// <param name="Pnot">Nominal pull-out strength of sheet per screw</param>
+    /// <param name="designMethod">ASD, LRFD, or LSD</param>
+    /// <param name="output">Container for nominal strength and equation number label</param>
+    /// <returns>aPnot - available pull-out strength of sheet per screw</returns>
     public static double AvailablePulloutStrength(double Pnot, string designMethod, Output? output = null)
 
     {
@@ -258,7 +288,13 @@ public class ChapterJConnections
     
  
 
-
+    /// <summary>
+    /// Calculate available pull-over strength of a sheet per screw
+    /// </summary>
+    /// <param name="Pnov">Nominal pull-over strength of a sheet per screw</param>
+    /// <param name="designMethod">ASD, LRFD, or LSD</param>
+    /// <param name="output">Container for nominal strength and equation number label</param>
+    /// <returns>aPnov - available pull-over strength of a sheet per screw</returns>
     public static double AvailablePulloverStrength(double Pnov, string designMethod, Output? output = null)
 
     {
