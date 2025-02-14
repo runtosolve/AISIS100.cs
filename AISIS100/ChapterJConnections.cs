@@ -108,7 +108,7 @@ public class ChapterJConnections
             var Pnvtb = Pnv123 + slope * (t2 / t1 - 1.0);
             return Pnvtb;
         }
-        else if ((t2 / t1) <= 1.0)
+        if ((t2 / t1) <= 1.0)
         {
             var Pnv1 = EqJ4_3_1__1(t2, d, Fu2, output);
             var Pnv2 = EqJ4_3_1__2(t1, d, Fu1, output);
