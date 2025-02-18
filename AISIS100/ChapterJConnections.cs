@@ -16,7 +16,7 @@ public class ChapterJConnections
     public static double EqJ4_3_1__1(double t2, double d, double Fu2, Output? output = null)
     {
         var Pnv = 4.2 * Math.Sqrt(Math.Pow(t2, 3) * d) * Fu2;
-        output?.AddResult("Pnv", Pnv, "Eq.J4.3.1-1");
+        output?.AddResult("PnvTilting", Pnv, "Eq.J4.3.1-1");
         return Pnv;
     }
     
@@ -31,7 +31,7 @@ public class ChapterJConnections
     public static double EqJ4_3_1__2(double t1, double d, double Fu1, Output? output = null)
     {
         var Pnv = 2.7 * t1 * d * Fu1;
-        output?.AddResult("Pnv", Pnv, "Eq.J4.3.1-2");
+        output?.AddResult("PnvBearingPly1", Pnv, "Eq.J4.3.1-2");
         return Pnv;
     }
     
@@ -46,7 +46,7 @@ public class ChapterJConnections
     public static double EqJ4_3_1__3(double t2, double d, double Fu2, Output? output = null)
     {
         var Pnv = 2.7 * t2 * d * Fu2;
-        output?.AddResult("Pnv", Pnv, "Eq.J4.3.1-3");
+        output?.AddResult("PnvBearingPly2", Pnv, "Eq.J4.3.1-3");
         return Pnv;
     }
     
@@ -61,7 +61,7 @@ public class ChapterJConnections
     public static double EqJ4_3_1__4(double t1, double d, double Fu1, Output? output = null)
     {
         var Pnv = 2.7 * t1 * d * Fu1;
-        output?.AddResult("Pnv", Pnv, "Eq.J4.3.1-4");
+        output?.AddResult("PnvBearingPly1", Pnv, "Eq.J4.3.1-4");
         return Pnv;
     }
     
@@ -76,7 +76,7 @@ public class ChapterJConnections
     public static double EqJ4_3_1__5(double t2, double d, double Fu2, Output? output = null)
     {
         var Pnv = 2.7 * t2 * d * Fu2;
-        output?.AddResult("Pnv", Pnv, "Eq.J4.3.1-5");
+        output?.AddResult("PnvBearingPly2", Pnv, "Eq.J4.3.1-5");
         return Pnv;
     }
 
