@@ -1,3 +1,6 @@
+// ReSharper disable InconsistentNaming
+// ReSharper disable RedundantNameQualifier
+
 namespace AISIS100;
 
 /// <summary>
@@ -19,7 +22,7 @@ public class ChapterJConnections
         output?.AddResult("PnvTilting", Pnv, "Eq.J4.3.1-1");
         return Pnv;
     }
-    
+
     /// <summary>
     /// Calculate nominal single shear screw connection strength limited by bearing on ply in contact with fastener head
     /// </summary>
@@ -34,7 +37,7 @@ public class ChapterJConnections
         output?.AddResult("PnvBearingPly1", Pnv, "Eq.J4.3.1-2");
         return Pnv;
     }
-    
+
     /// <summary>
     /// Calculate nominal single shear screw connection strength limited by bearing on ply not in contact with fastener head
     /// </summary>
@@ -49,7 +52,7 @@ public class ChapterJConnections
         output?.AddResult("PnvBearingPly2", Pnv, "Eq.J4.3.1-3");
         return Pnv;
     }
-    
+
     /// <summary>
     /// Calculate nominal single shear screw connection strength limited by bearing on ply in contact with fastener head
     /// </summary>
@@ -64,7 +67,7 @@ public class ChapterJConnections
         output?.AddResult("PnvBearingPly1", Pnv, "Eq.J4.3.1-4");
         return Pnv;
     }
-    
+
     /// <summary>
     /// Calculate nominal single shear screw connection strength limited by bearing on ply not in contact with fastener head
     /// </summary>
@@ -92,22 +95,22 @@ public class ChapterJConnections
     /// <returns>Pnvtb - nominal single shear screw connection strength limited by tilting and bearing</returns>
     public static double SingleShearScrewConnectionStrengthTiltingBearing(double t1, double t2, double Fu1, double Fu2, double d, Output? output = null)
     {
-
         if ((t2 / t1) > 1.0 && (t2 / t1) < 2.5)
         {
             var Pnv1 = EqJ4_3_1__1(t2, d, Fu2, output);
             var Pnv2 = EqJ4_3_1__2(t1, d, Fu1, output);
             var Pnv3 = EqJ4_3_1__3(t2, d, Fu2, output);
-            var Pnv123= Math.Min(Math.Min(Pnv1, Pnv2), Pnv3);
-            
+            var Pnv123 = Math.Min(Math.Min(Pnv1, Pnv2), Pnv3);
+
             var Pnv4 = EqJ4_3_1__4(t1, d, Fu1, output);
             var Pnv5 = EqJ4_3_1__5(t2, d, Fu2, output);
-            var Pnv45= Math.Min(Pnv4, Pnv5);
+            var Pnv45 = Math.Min(Pnv4, Pnv5);
 
             var slope = (Pnv45 - Pnv123) / (2.5 - 1.0);
             var Pnvtb = Pnv123 + slope * (t2 / t1 - 1.0);
             return Pnvtb;
         }
+
         if ((t2 / t1) <= 1.0)
         {
             var Pnv1 = EqJ4_3_1__1(t2, d, Fu2, output);
@@ -123,10 +126,9 @@ public class ChapterJConnections
             var Pnv5 = EqJ4_3_1__5(t2, d, Fu2, output);
             var Pnvtb = Math.Min(Pnv4, Pnv5);
             return Pnvtb;
-
         }
-        
     }
+
     /// <summary>
     /// Calculate available single shear screw connection strength limited by tilting and bearing
     /// </summary>
@@ -137,20 +139,20 @@ public class ChapterJConnections
     public static double AvailableSingleShearScrewConnectionStrengthTiltingBearing(double Pnvtb, string designMethod, Output? output = null)
 
     {
-        
-        Dictionary<string, double> safetyResistanceFactors =  
+        Dictionary<string, double> safetyResistanceFactors =
             new Dictionary<string, double>();
-            
+
         safetyResistanceFactors.Add("ASD", 2.80);
         safetyResistanceFactors.Add("LRFD", 0.55);
         safetyResistanceFactors.Add("LSD", 0.45);
+
+        var tempOutput = new Output();
+        var aPnvtb = AISIS100.Core.CalculateAvailableStrength(Pnvtb, designMethod, safetyResistanceFactors, tempOutput);
+        output?.AddResult("aPnvtb", aPnvtb, tempOutput.GetResultEquation("aRn") ?? "");
         
-        var aPnvtb = AISIS100.Core.CalculateAvailableStrength(Pnvtb, designMethod, safetyResistanceFactors, output);
-
         return aPnvtb;
-
     }
-    
+
     /// <summary>
     /// Calculate available screw shear rupture strength
     /// </summary>
@@ -161,20 +163,20 @@ public class ChapterJConnections
     public static double AvailableScrewConnectionStrengthShear(double Pnvs, string designMethod, Output? output = null)
 
     {
-        
-        Dictionary<string, double> safetyResistanceFactors =  
+        Dictionary<string, double> safetyResistanceFactors =
             new Dictionary<string, double>();
-            
+
         safetyResistanceFactors.Add("ASD", 3.00);
         safetyResistanceFactors.Add("LRFD", 0.50);
         safetyResistanceFactors.Add("LSD", 0.40);
+
+        var tempOutput = new Output();
+        var aPnvs = AISIS100.Core.CalculateAvailableStrength(Pnvs, designMethod, safetyResistanceFactors, tempOutput);
+        output?.AddResult("aaPnvs", aPnvs, tempOutput.GetResultEquation("aRn") ?? "");
         
-        var aPnvs = AISIS100.Core.CalculateAvailableStrength(Pnvs, designMethod, safetyResistanceFactors, output);
-
         return aPnvs;
-
     }
-    
+
     /// <summary>
     /// Calculate available single shear screw connection strength considering tilting and bearing and screw shear rupture
     /// </summary>
@@ -185,13 +187,11 @@ public class ChapterJConnections
     public static double AvailableSingleShearScrewConnectionStrength(double aPnvtb, double aPnvs, Output? output = null)
 
     {
-
         var aPnv = Math.Min(aPnvtb, aPnvs);
         return aPnv;
-
     }
-    
-    
+
+
     /// <summary>
     /// Calculate the nominal pull-out strength of sheet per screw
     /// </summary>
@@ -203,7 +203,6 @@ public class ChapterJConnections
     /// <returns>Pnot - nominal pull-out strength of sheet per screw</returns>
     public static double EqJ4_4_1__1(double tc, double d, double Fu2, string units, Output? output = null)
     {
-
         if (units == "inches")
         {
             var alpha = 1.0;
@@ -218,7 +217,6 @@ public class ChapterJConnections
             output?.AddResult("Pnot", Pnot, "Eq.J4.4.1-1");
             return Pnot;
         }
-        
     }
 
     /// <summary>
@@ -228,17 +226,15 @@ public class ChapterJConnections
     /// <param name="dPrimew">Effective pull-over resistance diameter</param>
     /// <param name="Fu1">Tensile strength of member in contact with screw head or washer</param>
     /// <param name="output">Container for nominal strength and equation number label</param>
-    /// <returns>Pnov - nominal pull-over strength of a sheet per screw/returns>
+    /// <returns>Pnov - nominal pull-over strength of a sheet per screw</returns>
     public static double EqJ4_4_2__1(double t1, double dPrimew, double Fu1, Output? output = null)
     {
-
         var Pnov = 0.90 * t1 * dPrimew * Fu1;
         output?.AddResult("Pnov", Pnov, "Eq.J4.4.2-1");
 
         return Pnov;
-        
     }
-    
+
     /// <summary>
     /// Calculate effective pull-over resistance diameter
     /// </summary>
@@ -250,18 +246,13 @@ public class ChapterJConnections
     /// <returns>dPrimew - effective pull-over resistance diameter</returns>
     public static double EqJ4_4_2__3(double dh, double tw, double t1, double dw, Output? output = null)
     {
-
         var dPrimew = Math.Min(dh + 2 * tw + t1, dw);
         output?.AddResult("dPrimew", dPrimew, "Eq.J4.4.2-3");
 
         return dPrimew;
-        
     }
-    
-    
 
 
-    
     /// <summary>
     /// Calculate available pull-out strength of sheet per screw
     /// </summary>
@@ -272,21 +263,20 @@ public class ChapterJConnections
     public static double AvailablePulloutStrength(double Pnot, string designMethod, Output? output = null)
 
     {
-        
-        Dictionary<string, double> safetyResistanceFactors =  
+        Dictionary<string, double> safetyResistanceFactors =
             new Dictionary<string, double>();
-            
+
         safetyResistanceFactors.Add("ASD", 2.80);
         safetyResistanceFactors.Add("LRFD", 0.55);
         safetyResistanceFactors.Add("LSD", 0.45);
+
+        var tempOutput = new Output();
+        var aPnot = AISIS100.Core.CalculateAvailableStrength(Pnot, designMethod, safetyResistanceFactors, tempOutput);
+        output?.AddResult("aPnot", aPnot, tempOutput.GetResultEquation("aRn") ?? "");
         
-        var aPnot = AISIS100.Core.CalculateAvailableStrength(Pnot, designMethod, safetyResistanceFactors, output);
-
         return aPnot;
-
     }
-    
- 
+
 
     /// <summary>
     /// Calculate available pull-over strength of a sheet per screw
@@ -298,19 +288,17 @@ public class ChapterJConnections
     public static double AvailablePulloverStrength(double Pnov, string designMethod, Output? output = null)
 
     {
-        
-        Dictionary<string, double> safetyResistanceFactors =  
+        Dictionary<string, double> safetyResistanceFactors =
             new Dictionary<string, double>();
-            
+
         safetyResistanceFactors.Add("ASD", 2.90);
         safetyResistanceFactors.Add("LRFD", 0.55);
         safetyResistanceFactors.Add("LSD", 0.40);
+
+        var tempOutput = new Output();
+        var aPnov = AISIS100.Core.CalculateAvailableStrength(Pnov, designMethod, safetyResistanceFactors, tempOutput);
+        output?.AddResult("aPnov", aPnov, tempOutput.GetResultEquation("aRn") ?? "");
         
-        var aPnov = AISIS100.Core.CalculateAvailableStrength(Pnov, designMethod, safetyResistanceFactors, output);
-
         return aPnov;
-
     }
-    
-    
 }
