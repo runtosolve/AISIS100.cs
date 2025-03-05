@@ -20,7 +20,7 @@ public static class ChapterDTension
     {
         var Tn = Ag * Fy;
 
-        output?.AddResult("Tn", Tn, "Eq. D2-1");
+        output?.AddResult("TnGross", Tn, "Eq. D2-1");
         
         return Tn;
     }
@@ -36,7 +36,7 @@ public static class ChapterDTension
     {
         var Tn = Anet * Fu;
 
-        output?.AddResult("Tn", Tn, "Eq. D3-1");
+        output?.AddResult("TnNet", Tn, "Eq. D3-1");
         
         return Tn;
     }
