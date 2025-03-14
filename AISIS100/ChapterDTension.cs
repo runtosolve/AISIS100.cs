@@ -98,9 +98,11 @@ public static class ChapterDTension
     public static double AvailableTensileStrengthTn(double Ag, double Anet, double Fy, double Fu, string designMethod, Output? output = null)
     {
 
-        var aTnGross = EqD2__1(Ag, Fy, output);
+        var TnGross = EqD2__1(Ag, Fy, output);
+        var aTnGross = AvailableGrossSectionTensileStrengthTn(TnGross, designMethod, output);
         
-        var aTnNet = EqD3__1(Anet, Fu, output);
+        var TnNet = EqD3__1(Anet, Fu, output);
+        var aTnNet = AvailableNetSectionTensileStrengthTn(TnNet, designMethod, output);
         
         var aTn = Math.Min(aTnGross, aTnNet);
         
