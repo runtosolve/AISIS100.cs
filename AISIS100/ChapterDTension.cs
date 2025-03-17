@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.Design;
-using System.Xml;
-
-namespace AISIS100;
+﻿namespace AISIS100;
 
 /// <summary>
 /// AISI S100 Chapter D equations for calculating member tensile strength
@@ -58,7 +55,7 @@ public static class ChapterDTension
         SafetyResistanceFactors.Add("LRFD", 0.90);
         SafetyResistanceFactors.Add("LSD", 0.90);
 
-        var aTn = AISIS100.Core.CalculateAvailableStrength(Tn, designMethod, SafetyResistanceFactors, output);
+        var aTn = Core.CalculateAvailableStrength(Tn, designMethod, SafetyResistanceFactors, output);
 
         return aTn;
     }
@@ -80,7 +77,7 @@ public static class ChapterDTension
         SafetyResistanceFactors.Add("LRFD", 0.75);
         SafetyResistanceFactors.Add("LSD", 0.75);
 
-        var aTn = AISIS100.Core.CalculateAvailableStrength(Tn, designMethod, SafetyResistanceFactors, output);
+        var aTn = Core.CalculateAvailableStrength(Tn, designMethod, SafetyResistanceFactors, output);
 
         return aTn;
     }
@@ -98,14 +95,18 @@ public static class ChapterDTension
     public static double AvailableTensileStrengthTn(double Ag, double Anet, double Fy, double Fu, string designMethod, Output? output = null)
     {
 
+        var outputGross = new Output();
         var TnGross = EqD2__1(Ag, Fy, output);
-        var aTnGross = AvailableGrossSectionTensileStrengthTn(TnGross, designMethod, output);
+        var aTnGross = AvailableGrossSectionTensileStrengthTn(TnGross, designMethod, outputGross);
         
+        var outputNet = new Output();
         var TnNet = EqD3__1(Anet, Fu, output);
-        var aTnNet = AvailableNetSectionTensileStrengthTn(TnNet, designMethod, output);
+        var aTnNet = AvailableNetSectionTensileStrengthTn(TnNet, designMethod, outputNet);
         
         var aTn = Math.Min(aTnGross, aTnNet);
-        
+
+        output?.Extend(aTnGross <= aTnNet ? outputGross : outputNet);
+
         output?.AddResult("aTn", aTn, "Section D1");
         
         return aTn;

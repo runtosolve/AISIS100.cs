@@ -18,6 +18,19 @@ public class Output
     }
     
     /// <summary>
+    /// Extend the output with another Output object
+    /// </summary>
+    /// <param name="other">The other Output object</param>
+    public void Extend(Output other)
+    {
+        foreach (var kvp in other._data)
+        {
+            // We should raise exception if the key already exists
+            _data.Add(kvp.Key, kvp.Value);
+        }
+    }
+    
+    /// <summary>
     /// Remove a result from the output
     /// </summary>
     /// <param name="key">Variable name (matching AISI S100)</param>
