@@ -1,4 +1,5 @@
-﻿using AISIS100.Reporting;
+﻿using AISIS100.Entities;
+using AISIS100.Reporting;
 
 namespace AISIS100;
 
@@ -7,6 +8,15 @@ namespace AISIS100;
 /// </summary>
 public static class ChapterDTension
 {
+    /// <summary>
+    /// Safety resistance factors for tension chapter
+    /// </summary>
+    public static SafetyResistanceFactors SafetyResistanceFactors = new()
+    {
+        ASD = 1.67,
+        LRFD = 0.90,
+        LSD = 0.90
+    };
     
     /// <summary>
     /// Calculate nominal member tensile strength considering gross cross-section.
@@ -49,15 +59,10 @@ public static class ChapterDTension
     /// <returns></returns>
     public static double AvailableGrossSectionTensileStrengthTn(double Tn, string designMethod, Output? output = null)
     {
-   
-        Dictionary<string, double> SafetyResistanceFactors =  
-            new Dictionary<string, double>();
-        
-        SafetyResistanceFactors.Add("ASD", 1.67);
-        SafetyResistanceFactors.Add("LRFD", 0.90);
-        SafetyResistanceFactors.Add("LSD", 0.90);
 
-        var aTn = Core.CalculateAvailableStrength(Tn, designMethod, SafetyResistanceFactors, output);
+        var safetyResistanceFactorsDictionary = SafetyResistanceFactors.ToDictionary();  
+
+        var aTn = Core.CalculateAvailableStrength(Tn, designMethod, safetyResistanceFactorsDictionary, output);
 
         return aTn;
     }
@@ -72,14 +77,9 @@ public static class ChapterDTension
     public static double AvailableNetSectionTensileStrengthTn(double Tn, string designMethod, Output? output = null)
     {
    
-        Dictionary<string, double> SafetyResistanceFactors =  
-            new Dictionary<string, double>();
-        
-        SafetyResistanceFactors.Add("ASD", 2.0);
-        SafetyResistanceFactors.Add("LRFD", 0.75);
-        SafetyResistanceFactors.Add("LSD", 0.75);
+        var safetyResistanceFactorsDictionary = SafetyResistanceFactors.ToDictionary();  
 
-        var aTn = Core.CalculateAvailableStrength(Tn, designMethod, SafetyResistanceFactors, output);
+        var aTn = Core.CalculateAvailableStrength(Tn, designMethod, safetyResistanceFactorsDictionary, output);
 
         return aTn;
     }
