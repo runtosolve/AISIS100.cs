@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.Design;
 using System.Xml;
+using AISIS100.Reporting;
 
 namespace AISIS100;
 

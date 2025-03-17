@@ -1,4 +1,5 @@
 using System.Security.Cryptography;
+using AISIS100.Reporting;
 
 namespace AISIS100;
 

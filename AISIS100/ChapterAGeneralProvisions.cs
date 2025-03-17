@@ -1,4 +1,5 @@
 using System.ComponentModel.Design;
+using AISIS100.Reporting;
 
 namespace AISIS100;
 

@@ -1,6 +1,8 @@
 // ReSharper disable InconsistentNaming
 // ReSharper disable RedundantNameQualifier
 
+using AISIS100.Reporting;
+
 namespace AISIS100;
 
 /// <summary>

@@ -1,6 +1,6 @@
-using System.ComponentModel.DataAnnotations;
+using AISIS100.Reporting;
 
-namespace AISIS100;
+namespace AISIS100.Entities;
 
 public class DirectStrengthMethod
 {

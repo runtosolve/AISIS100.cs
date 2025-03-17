@@ -1,4 +1,6 @@
-﻿namespace AISIS100;
+﻿using AISIS100.Reporting;
+
+namespace AISIS100;
 
 /// <summary>
 /// AISI S100 Chapter D equations for calculating member tensile strength

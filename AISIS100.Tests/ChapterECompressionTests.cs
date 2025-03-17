@@ -1,3 +1,5 @@
+using AISIS100.Reporting;
+
 namespace AISIS100.Tests;
 
 public class ChapterECompressionTests

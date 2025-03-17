@@ -1,6 +1,4 @@
-namespace AISIS100;
-
-using System.Collections.Generic;
+namespace AISIS100.Reporting;
 
 public class Output
 {

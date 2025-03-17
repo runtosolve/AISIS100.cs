@@ -1,10 +1,10 @@
-namespace AISIS100;
+namespace AISIS100.Reporting;
 
 /// <summary>
 /// Class to represent the result of a calculation
 /// </summary>
 /// <remarks>
-/// Primarily used to match a calculation result with a equation reference
+/// Primarily used to match a calculation result with an equation reference
 /// </remarks>
 public class Result
 {

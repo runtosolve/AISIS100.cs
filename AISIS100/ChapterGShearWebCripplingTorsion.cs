@@ -1,5 +1,6 @@
 // ReSharper disable InconsistentNaming
 using System.Collections.Immutable;
+using AISIS100.Reporting;
 
 namespace AISIS100;
 
