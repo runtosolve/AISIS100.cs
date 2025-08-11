@@ -1,4 +1,5 @@
 // ReSharper disable InconsistentNaming
+
 namespace AISIS100;
 
 public static class ChapterCStability
@@ -16,7 +17,7 @@ public static class ChapterCStability
         {
             throw new Exception("Equation does not apply to alpha * Pbar / Py > 0.5");
         }
-        
+
         double taub = 1.0;
         return taub;
     }
@@ -29,7 +30,7 @@ public static class ChapterCStability
             "ASD" => 1.6,
             _ => throw new Exception("Invalid design method")
         };
-        
+
         if (alpha * Pbar / Py <= 0.5)
         {
             throw new Exception("Equation does not apply to alpha * Pbar / Py <= 0.5");
@@ -43,7 +44,7 @@ public static class ChapterCStability
         var taub = 4 * (alpha * Pbar / Py) * (1 - alpha * Pbar / Py);
         return taub;
     }
-    
+
     public static double EqC1_2_1_1__1(double Mntbar, double Mltbar, double B1, double B2)
     {
         var Mbar = (B1 * Mntbar + B2 * Mltbar);
@@ -65,7 +66,18 @@ public static class ChapterCStability
             _ => throw new Exception("Invalid design method")
         };
 
-        var B1= Math.Max(Cm / (1 - alpha * Pbar / Pe1), 1.0);
+        if (alpha * Pbar / Pe1 >= 1.0)
+        {
+            throw new Exception("Factored load is too high (alpha * Pbar / Pe1 >= 1.0)");
+        }
+
+        var B1 = Math.Max(Cm / (1 - alpha * Pbar / Pe1), 1.0);
+
+        if (B1 > 1.5)
+        {
+            throw new Exception("B1 exceeds the maximum allowed value of 1.5");
+        }
+
         return B1;
     }
 
@@ -95,7 +107,7 @@ public static class ChapterCStability
         string designMethod, bool flexuralStiffnessForStability = true)
     {
         var Cm = 1.0; // can be conservatively taken 1.0 for all cases if transverse loading exists
-        
+
         double alpha = designMethod switch
         {
             "LRFD" or "LSD" => 1.0,
@@ -107,6 +119,7 @@ public static class ChapterCStability
         {
             taub = alpha * Pbar / Py <= 0.5 ? EqC1_1_1_3__1(Pbar, Py, designMethod) : EqC1_1_1_3__2(Pbar, Py, designMethod);
         }
+
         var kf = 0.9 * taub * EI1;
         var Pe1 = EqC1_2_1_1__5(kf, K1, L);
         var B1 = EqC1_2_1_1__3(Cm, Pbar, Pe1, designMethod);

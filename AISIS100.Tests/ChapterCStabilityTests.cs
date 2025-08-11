@@ -5,8 +5,8 @@ public class ChapterCStabilityTests
     [Test]
     public void EqC1_2_1_1__3_ReturnsCorrectValue()
     {
-        var exepcted = 1.90;
-        var actual = ChapterCStability.EqC1_2_1_1__3(0.95, 0.5, 1.0, "LRFD");
+        var exepcted = 1.40;
+        var actual = ChapterCStability.EqC1_2_1_1__3(0.7, 0.5, 1.0, "LRFD");
         Assert.That(actual, Is.EqualTo(exepcted).Within(1.0).Percent);
     }
     
@@ -41,8 +41,7 @@ public class ChapterCStabilityTests
         var actual = ChapterCStability.EqC1_2_1_1__2(0.5, 0.75, 1.4);
         Assert.That(actual, Is.EqualTo(expected).Within(1.0).Percent);
     }
-
-    [TestCase(1.1, 0.4, 3.056)]
+    
     [TestCase(0.6, 0.1, 1.0)]
     public void EqC1_2_1_1__3_ReturnCorrectValue(double Cm, double Pbar_Py, double expected)
     {
@@ -72,5 +71,17 @@ public class ChapterCStabilityTests
         var expected = 1.243;
         var actual = ChapterCStability.CalculateB1WithTransverseLoading(0.4, 1.0, 10.0, 0.5, 10.0, "ASD", true);
         Assert.That(actual, Is.EqualTo(expected).Within(1.0).Percent);
+    }
+
+    [Test]
+    public void CalculateB1WithTransverseLoading_InvalidAxialLoad_ThrowsException()
+    {
+        Assert.Throws<Exception>(() => ChapterCStability.CalculateB1WithTransverseLoading(1.0, 10.0, 1.0, 0.5, 10.0, "ASD", true));
+    }
+    
+    [Test]
+    public void EqC1_2_1_1__3_B1GreaterThanLimit_ThrowsException()
+    {
+        Assert.Throws<Exception>(() => ChapterCStability.EqC1_2_1_1__3(1.0, 1.6, 1.0, "LRFD"));
     }
 }
