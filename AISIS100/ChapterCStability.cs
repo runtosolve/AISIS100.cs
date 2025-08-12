@@ -73,10 +73,12 @@ public static class ChapterCStability
 
         var B1 = Math.Max(Cm / (1 - alpha * Pbar / Pe1), 1.0);
 
-        if (B1 > 1.5)
-        {
-            throw new Exception("B1 exceeds the maximum allowed value of 1.5");
-        }
+        // This is only needed for effective length method.
+        // Let user decide if they should limit B1 or not.
+        // if (B1 > 1.5)
+        // {
+        //     throw new Exception("B1 exceeds the maximum allowed value of 1.5");
+        // }
 
         return B1;
     }
