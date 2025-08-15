@@ -79,8 +79,6 @@ public static class Appendix2Buckling
         output?.AddResult("Fcre", Fcre, "Eq.2.3.1.2-1");
         return Fcre;
     }
-
-    
     
     public static double Eq2_3_1_2_1__1(double Cb, double ro, double Pey, double Pt, Output? output = null)
     {
@@ -88,5 +86,12 @@ public static class Appendix2Buckling
         output?.AddResult("Mcre", Mcre, "Eq.2.3.1.2.1-1");
         return Mcre;
     }
-    
+
+    public static double Eq2_3_1_2_2__1(double Cb, double Cs, double j, double ro, double Pt, double Pex, Output? output = null)
+    {
+        var Mcre = Cb * Pex * (Cs * Math.Abs(j) + Math.Sqrt(j * j + ro * ro * Pt / Pex));
+        output?.AddResult("Mcre", Mcre, "Eq.2.3.1.2.2-1");
+        
+        return Mcre;
+    }
 }
