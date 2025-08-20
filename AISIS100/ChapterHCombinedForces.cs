@@ -43,7 +43,6 @@ public class ChapterHCombinedForces
     
     public static (double interaction, string passOrFail) EqH3__1a(double Pbar, double Mbar, double Pn, double Mnlo, double omega, Output? output = null)
     {
-
         var interaction = 0.91 * (Pbar / Pn) + (Mbar / Mnlo);
         output?.AddResult("interaction", interaction, "Eq.H3-1a");
         
@@ -62,7 +61,6 @@ public class ChapterHCombinedForces
     
     public static (double interaction, string passOrFail) EqH3__2a(double Pbar, double Mbar, double Pn, double Mnlo, double phi, Output? output = null)
     {
-
         var interaction = 0.91 * (Pbar / Pn) + (Mbar / Mnlo);
         output?.AddResult("interaction", interaction, "Eq.H3-1b");
         
@@ -80,9 +78,7 @@ public class ChapterHCombinedForces
     }
 
     public static (double interaction, string passOrFail) Section3__2a(double Pbar, double Mbar, double Pn, double Mnlo, string designMethod, Output? output = null)
-
     {
-
         if (designMethod == "ASD")
         {
             var omega = 1.70;

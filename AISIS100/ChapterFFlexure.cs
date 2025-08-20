@@ -1,9 +1,17 @@
+using AISIS100.Entities;
 using AISIS100.Reporting;
 
 namespace AISIS100;
 
 public static class ChapterFFlexure
 {
+    public static SafetyResistanceFactors SafetyResistanceFactors = new()
+    {
+        ASD = 1.67,
+        LRFD = 0.90,
+        LSD = 0.90
+    };
+    
     public static double EqF2_1__1(double Sfc, double Fn, double My, Output? output = null)
     {
         var Mne = Math.Min(Sfc * Fn, My);
@@ -115,15 +123,8 @@ public static class ChapterFFlexure
     
     public static double AvailableGlobalBucklingStrengthMne(double Mne, string designMethod, Output? output = null)
     {
-   
-        Dictionary<string, double> SafetyResistanceFactors =  
-            new Dictionary<string, double>();
-        
-        SafetyResistanceFactors.Add("ASD", 1.67);
-        SafetyResistanceFactors.Add("LRFD", 0.90);
-        SafetyResistanceFactors.Add("LSD", 0.90);
-
-        var aMne = AISIS100.Core.CalculateAvailableStrength(Mne, designMethod, SafetyResistanceFactors, output);
+        var safetyResistanceFactors = SafetyResistanceFactors.ToDictionary();
+        var aMne = AISIS100.Core.CalculateAvailableStrength(Mne, designMethod, safetyResistanceFactors, output);
 
         return aMne;
     }
@@ -145,15 +146,8 @@ public static class ChapterFFlexure
 
     public static double AvailableLocalBucklingStrengthMnl(double Mnl, string designMethod, Output? output = null)
     {
-   
-        Dictionary<string, double> SafetyResistanceFactors =  
-            new Dictionary<string, double>();
-        
-        SafetyResistanceFactors.Add("ASD", 1.67);
-        SafetyResistanceFactors.Add("LRFD", 0.90);
-        SafetyResistanceFactors.Add("LSD", 0.90);
-
-        var aMnl = AISIS100.Core.CalculateAvailableStrength(Mnl, designMethod, SafetyResistanceFactors, output);
+        var safetyResistanceFactors = SafetyResistanceFactors.ToDictionary();
+        var aMnl = AISIS100.Core.CalculateAvailableStrength(Mnl, designMethod, safetyResistanceFactors, output);
 
         return aMnl;
     }
@@ -175,15 +169,8 @@ public static class ChapterFFlexure
     
     public static double AvailableDistortionalBucklingStrengthMnd(double Mnd, string designMethod, Output? output = null)
     {
-   
-        Dictionary<string, double> SafetyResistanceFactors =  
-            new Dictionary<string, double>();
-        
-        SafetyResistanceFactors.Add("ASD", 1.67);
-        SafetyResistanceFactors.Add("LRFD", 0.90);
-        SafetyResistanceFactors.Add("LSD", 0.90);
-
-        var aMnd = AISIS100.Core.CalculateAvailableStrength(Mnd, designMethod, SafetyResistanceFactors, output);
+        var safetyResistanceFactors = SafetyResistanceFactors.ToDictionary();
+        var aMnd = AISIS100.Core.CalculateAvailableStrength(Mnd, designMethod, safetyResistanceFactors, output);
 
         return aMnd;
     }

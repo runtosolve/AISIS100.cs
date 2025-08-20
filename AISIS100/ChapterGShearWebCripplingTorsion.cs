@@ -1,6 +1,7 @@
 // ReSharper disable InconsistentNaming
 
 using System.Collections.Immutable;
+using AISIS100.Entities;
 using AISIS100.Reporting;
 
 namespace AISIS100;
@@ -8,6 +9,13 @@ namespace AISIS100;
 public class ChapterGShearWebCripplingTorsion
 {
     private static readonly IList<WebCripplingParameters> TableG5__2Data;
+    
+    public static SafetyResistanceFactors SafetyResistanceFactorsForShear = new()
+    {
+        ASD = 1.67,
+        LRFD = 0.90,
+        LSD = 0.75,
+    };
 
     static ChapterGShearWebCripplingTorsion()
     {
@@ -80,14 +88,8 @@ public class ChapterGShearWebCripplingTorsion
 
     public static double AvailableShearStrengthVn(double Vn, string designMethod, Output? output = null)
     {
-        Dictionary<string, double> SafetyResistanceFactors =
-            new Dictionary<string, double>();
-
-        SafetyResistanceFactors.Add("ASD", 1.67);
-        SafetyResistanceFactors.Add("LRFD", 0.90);
-        SafetyResistanceFactors.Add("LSD", 0.75);
-
-        var aVn = Core.CalculateAvailableStrength(Vn, designMethod, SafetyResistanceFactors, output);
+        var safetyResistanceFactors = SafetyResistanceFactorsForShear.ToDictionary();
+        var aVn = Core.CalculateAvailableStrength(Vn, designMethod, safetyResistanceFactors, output);
 
         return aVn;
     }

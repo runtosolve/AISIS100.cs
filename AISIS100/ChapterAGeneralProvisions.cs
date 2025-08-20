@@ -1,4 +1,4 @@
-using System.ComponentModel.Design;
+using AISIS100.Entities;
 using AISIS100.Reporting;
 
 namespace AISIS100;
@@ -8,7 +8,20 @@ namespace AISIS100;
 /// </summary>
 public class ChapterAGeneralProvisions
 {
- 
+    public static SafetyResistanceFactors SafetyResistanceFactorsForMembers = new()
+    {
+        ASD = 2.0,
+        LRFD = 0.80,
+        LSD = 0.75
+    };
+
+    public static SafetyResistanceFactors SafetyResistanceFactorsForConnections = new()
+    {
+        ASD = 3.0,
+        LRFD = 0.55,
+        LSD = 0.50
+    };
+
     /// <summary>
     /// Calculate available strength for members and connections evaluated using rational engineering analysis
     /// </summary>
@@ -20,36 +33,21 @@ public class ChapterAGeneralProvisions
     /// <exception cref="ArgumentOutOfRangeException">Enforces member or connection designation for componentType</exception>
     public static double SectionA1_2_6__c(double Rn, string componentType, string designMethod, Output? output = null)
     {
-        
         if (componentType == "member")
         {
-            Dictionary<string, double> safetyResistanceFactors =  
-                new Dictionary<string, double>();
-            
-            safetyResistanceFactors.Add("ASD", 2.0);
-            safetyResistanceFactors.Add("LRFD", 0.80);
-            safetyResistanceFactors.Add("LSD", 0.75);
-            
-            var aRn = AISIS100.Core.CalculateAvailableStrength(Rn, designMethod, safetyResistanceFactors, output);
-            return aRn;
-
-        }
-
-        if (componentType != "connection")
-            throw new ArgumentOutOfRangeException(nameof(componentType),
-                "componentType should be member or connection");
-        {
-            Dictionary<string, double> safetyResistanceFactors =  
-                new Dictionary<string, double>();
-                
-            safetyResistanceFactors.Add("ASD", 3.0);
-            safetyResistanceFactors.Add("LRFD", 0.55);
-            safetyResistanceFactors.Add("LSD", 0.50);
-            
+            var safetyResistanceFactors = SafetyResistanceFactorsForMembers.ToDictionary();
             var aRn = Core.CalculateAvailableStrength(Rn, designMethod, safetyResistanceFactors, output);
             return aRn;
         }
-        
+
+        if (componentType == "connection")
+        {
+            var safetyResistanceFactors = SafetyResistanceFactorsForConnections.ToDictionary();
+
+            var aRn = Core.CalculateAvailableStrength(Rn, designMethod, safetyResistanceFactors, output);
+            return aRn;
+        }
+
+        throw new ArgumentOutOfRangeException(nameof(componentType), "componentType should be member or connection");
     }
-    
 }

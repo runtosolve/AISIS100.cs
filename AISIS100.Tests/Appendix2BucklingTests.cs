@@ -8,7 +8,7 @@ public class Appendix2BucklingTests
     public void Eq2_3_1__1_IsCorrect()
     {
         var output = new Output();
-        var Pex = AISIS100.Appendix2Buckling.Eq2_3_1__1(29500.0, 1.734611938, 1.0, 96.0, output);
+        var Pex = Appendix2Buckling.Eq2_3_1__1(29500.0, 1.734611938, 1.0, 96.0, output);
 
         var expected = 54.80013475;
         var actual = Pex;
@@ -21,7 +21,7 @@ public class Appendix2BucklingTests
     public void Eq2_3_1__2_IsCorrect()
     {
         var output = new Output();
-        var Pey = AISIS100.Appendix2Buckling.Eq2_3_1__2(29500.0, 0.08788380153, 0.5, 96.0, output);
+        var Pey = Appendix2Buckling.Eq2_3_1__2(29500.0, 0.08788380153, 0.5, 96.0, output);
 
         var expected = 11.10575584;
         var actual = Pey;
@@ -34,7 +34,7 @@ public class Appendix2BucklingTests
     public void Eq2_3_1__3_IsCorrect()
     {
         var output = new Output();
-        var Pt = AISIS100.Appendix2Buckling.Eq2_3_1__3(2.260629921, 11300.0, 0.0002731653427, 29500.0, 0.5325173201, 0.5, 96.0, output);
+        var Pt = Appendix2Buckling.Eq2_3_1__3(2.260629921, 11300.0, 0.0002731653427, 29500.0, 0.5325173201, 0.5, 96.0, output);
 
         var expected = 13.77183741;
         var actual = Pt;
@@ -48,7 +48,7 @@ public class Appendix2BucklingTests
     public void Eq2_3_1__4_IsCorrect()
     {
         var output = new Output();
-        var beta = AISIS100.Appendix2Buckling.Eq2_3_1__4(0.7720472441, 2.260629921, 0.5, 96.0, 1.0, 96.0, output);
+        var beta = Appendix2Buckling.Eq2_3_1__4(0.7720472441, 2.260629921, 0.5, 96.0, 1.0, 96.0, output);
         var expected = 0.9708412556;
         var actual = beta;
         
@@ -60,7 +60,7 @@ public class Appendix2BucklingTests
     public void Eq2_3_1_1__1_IsCorrect()
     {
         var output = new Output();
-        var Fcre = AISIS100.Appendix2Buckling.Eq2_3_1_1__1(11.11,  0.4037758076, output);
+        var Fcre = Appendix2Buckling.Eq2_3_1_1__1(11.11,  0.4037758076, output);
 
         var expected = 27.50;
         var actual = Fcre;
@@ -72,7 +72,7 @@ public class Appendix2BucklingTests
     public void Eq2_3_1_1_2__1_IsCorrect()
     {
         var output = new Output();
-        var Pcre = AISIS100.Appendix2Buckling.Eq2_3_1_1_2__1(0.9708412556, 54.80013475, 13.77183741, output);
+        var Pcre = Appendix2Buckling.Eq2_3_1_1_2__1(0.9708412556, 54.80013475, 13.77183741, output);
         var expected = 13.640035;
         var actual = Pcre;
         
@@ -85,7 +85,7 @@ public class Appendix2BucklingTests
     public void Eq2_3_1_2__1_IsCorrect()
     {
         var output = new Output();
-        var Fcre = AISIS100.Appendix2Buckling.Eq2_3_1_2__1(27.96, 0.6294163319, output);
+        var Fcre = Appendix2Buckling.Eq2_3_1_2__1(27.96, 0.6294163319, output);
         var expected = 44.42;
         var actual = Fcre;
         
@@ -98,7 +98,7 @@ public class Appendix2BucklingTests
     public void Eq2_3_1_2_1__1_IsCorrect()
     {
         var output = new Output();
-        var Mcre = AISIS100.Appendix2Buckling.Eq2_3_1_2_1__1(1.0, 2.260629921, 11.10575584, 13.77183741, output);
+        var Mcre = Appendix2Buckling.Eq2_3_1_2_1__1(1.0, 2.260629921, 11.10575584, 13.77183741, output);
         var expected = 27.95757352;
         var actual = Mcre;
         

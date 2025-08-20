@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.Design;
-using System.Xml;
+﻿using AISIS100.Entities;
 using AISIS100.Reporting;
 
 namespace AISIS100;
@@ -7,6 +6,12 @@ namespace AISIS100;
 
 public static class ChapterECompression
 {
+    public static SafetyResistanceFactors SafetyResistanceFactors = new()
+    {
+        ASD = 1.80,
+        LRFD = 0.85,
+        LSD = 0.80
+    };
     
     public static double EqE2__1(double Ag, double Fn, Output? output = null)
     {
@@ -136,17 +141,10 @@ public static class ChapterECompression
     
     public static double AvailableGlobalBucklingStrengthPne(double Pne, string designMethod, Output? output = null)
     {
-   
-        Dictionary<string, double> SafetyResistanceFactors =  
-            new Dictionary<string, double>();
+        var safetyResistanceFactors = SafetyResistanceFactors.ToDictionary();
+        var aPne = Core.CalculateAvailableStrength(Pne, designMethod, safetyResistanceFactors, output);
         
-            SafetyResistanceFactors.Add("ASD", 1.80);
-            SafetyResistanceFactors.Add("LRFD", 0.85);
-            SafetyResistanceFactors.Add("LSD", 0.80);
-
-            var aPne = AISIS100.Core.CalculateAvailableStrength(Pne, designMethod, SafetyResistanceFactors, output);
-            
-            return aPne;
+        return aPne;
     }
 
     
@@ -169,14 +167,8 @@ public static class ChapterECompression
     public static double AvailableLocalBucklingStrengthPnl(double Pnl, string designMethod, Output? output = null)
     {
    
-        Dictionary<string, double> SafetyResistanceFactors =  
-            new Dictionary<string, double>();
-        
-        SafetyResistanceFactors.Add("ASD", 1.80);
-        SafetyResistanceFactors.Add("LRFD", 0.85);
-        SafetyResistanceFactors.Add("LSD", 0.80);
-
-        var aPnl = AISIS100.Core.CalculateAvailableStrength(Pnl, designMethod, SafetyResistanceFactors, output);
+        var safetyResistanceFactors = SafetyResistanceFactors.ToDictionary();
+        var aPnl = Core.CalculateAvailableStrength(Pnl, designMethod, safetyResistanceFactors, output);
 
         return aPnl;
     }
@@ -197,15 +189,8 @@ public static class ChapterECompression
     
     public static double AvailableDistortionalBucklingStrengthPnd(double Pnd, string designMethod, Output? output = null)
     {
-   
-        Dictionary<string, double> SafetyResistanceFactors =  
-            new Dictionary<string, double>();
-        
-        SafetyResistanceFactors.Add("ASD", 1.80);
-        SafetyResistanceFactors.Add("LRFD", 0.85);
-        SafetyResistanceFactors.Add("LSD", 0.80);
-
-        var aPnd = AISIS100.Core.CalculateAvailableStrength(Pnd, designMethod, SafetyResistanceFactors, output);
+        var safetyResistanceFactors = SafetyResistanceFactors.ToDictionary();
+        var aPnd = Core.CalculateAvailableStrength(Pnd, designMethod, safetyResistanceFactors, output);
 
         return aPnd;
     }
