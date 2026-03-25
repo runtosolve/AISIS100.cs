@@ -1,40 +1,85 @@
-[![NuGet version (AISIS100.cs)](https://img.shields.io/nuget/v/AISIS100.cs.svg?style=flat)](https://www.nuget.org/packages/AISIS100.cs/)
-[![NuGet Downloads](https://img.shields.io/nuget/dt/AISIS100.cs?style=flat)](https://www.nuget.org/packages/AISIS100.cs/)
-
-
 # AISIS100.cs
 
-This is an unofficial .NET API for AISIS100 Specification (American Iron and Steel Institute Specification for the Design of Cold-Formed Steel Structural Members).
-Each equation in AISIS100 is converted into a method in the API. Open-source and free to use (MIT License).
+*AISI S100 cold-formed steel design equations, implemented as a .NET library.*
 
-Seamlessly integrate AISIS100 design checks into your .NET application without having to writing down the equations yourself.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![NuGet](https://img.shields.io/nuget/v/AISIS100.cs.svg)](https://www.nuget.org/packages/AISIS100.cs)
+[![.NET](https://img.shields.io/badge/.NET-6.0%2B-512BD4?logo=dotnet)](https://dotnet.microsoft.com)
+[![Docs](https://img.shields.io/badge/docs-available-brightgreen)](https://runtosolve.github.io/AISIS100.cs/)
 
-Each API generates a detailed output that includes all the intermediate calculations and the final result with references to specific sections in the Specification.
+---
 
-Whether you are developing full-fledged cold-formed steel (CFS) design software or just want to automate some of your CFS design workflows, this package can help you to get started quickly.
+## The Problem
+
+Cold-formed steel design is still largely implemented in spreadsheets. Each project requires
+re-creating AISI S100 equations — often in workbooks that are difficult to audit, extend, or
+reuse, with limited transparency into how results are produced.
+
+---
+
+## What It Does
+
+`AISIS100.cs` implements the **AISI S100 North American Specification for the Design of
+Cold-Formed Steel Structural Members** as a .NET class library.
+
+- Covers tension, compression, flexure, shear, combined loading, connections, and distortional buckling
+- Returns both **nominal strength** and **available strength** (ASD, LRFD, LSD)
+- Includes an `Output` object that captures intermediate calculations and specification references at every step
+
+Three editions are currently supported:
+
+| Edition                   | Design Methods  |
+|---------------------------|-----------------|
+| AISI S100-16              | ASD, LRFD, LSD  |
+| AISI S100-16 Supplement 3 | ASD, LRFD, LSD  |
+| AISI S100-24              | ASD, LRFD, LSD  |
+
+---
 
 ## Installation
-Install the package from NuGet
-```bash
-nuget install AISIS100.cs
+
+**NuGet Package Manager:**
+```
+Install-Package AISIS100.cs
 ```
 
-Install the package from dotnet CLI
-```bash
+**.NET CLI:**
+```
 dotnet add package AISIS100.cs
 ```
 
-## Usage
-The architecture of the API is an exact replica of the AISIS100 Specification.
-Each chapter in the specification is a class in the API. 
-Within each class, each equation is a method.
-For example, to calculate the nominal distortional buckling strength of a section under compression by Direct Strength Method (DSM), 
-you need to use Eq.F4-1 and Eq.F4-2 in Chapter F4 of the AISIS100 Specification.
-Instead of writing down the equations yourself, you can use the API to do the calculation for you.
+---
+
+## Quick Start
 
 ```csharp
-var Mnd = AISIS100.ChapterFFlexure.EqF4__2(Mcrd, My, output);
+using AISIS100;
+
+var output = new Output();
+
+double My   = 50.0;  // kip-in, yield moment
+double Mcrd = 28.0;  // kip-in, critical elastic distortional buckling moment
+
+double Mnd  = ChapterFFlexure.DistortionalBucklingStrengthMnd(My, Mcrd, output);
+double aMnd = ChapterFFlexure.AvailableDistortionalBucklingStrengthMnd(Mnd, "LRFD", output);
+
+Console.WriteLine($"Nominal:          {Mnd:F2} kip-in");
+Console.WriteLine($"Available (LRFD): {aMnd:F2} kip-in");
 ```
 
-The `output` parameter is an instance of `Output` class that contains the intermediate calculations and the final result with references to the Specification.
-You can use `GetResult(string key)` method retrieve the all the intermediate results and look up the references in the Specification.
+```
+Nominal:          31.26 kip-in
+Available (LRFD): 28.13 kip-in
+```
+
+---
+
+## Documentation
+
+Full API reference: [runtosolve.github.io/AISIS100.cs](https://runtosolve.github.io/AISIS100.cs)
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
