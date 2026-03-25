@@ -104,11 +104,12 @@ public static class ChapterCStability
     /// <param name="L">Member length</param>
     /// <param name="designMethod">ASD, LRFD, LSD</param>
     /// <param name="flexuralStiffnessForStability">Whether flexural stiffness contribute stability of structure</param>
-    /// <returns></returns>
+    /// <param name="Cm">Coefficient assuming no lateral translation of frmae.</param>
+    /// <returns>B1 factor.</returns>
     public static double CalculateB1WithTransverseLoading(double Pbar, double Py, double EI1, double K1, double L,
-        string designMethod, bool flexuralStiffnessForStability = true)
+        string designMethod, bool flexuralStiffnessForStability = true, double Cm = 1.0)
     {
-        var Cm = 1.0; // can be conservatively taken 1.0 for all cases if transverse loading exists
+        // can be conservatively taken 1.0 for all cases if transverse loading exists
 
         double alpha = designMethod switch
         {
