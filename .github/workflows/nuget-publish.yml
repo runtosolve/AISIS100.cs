@@ -22,10 +22,17 @@ jobs:
       # Extract version from GitHub release tag (assuming the tag is something like v1.0.0)
       - name: Extract version from GitHub release tag
         id: extract_version
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          VERSION=$(echo "${{ github.event.release.tag_name }}" | sed 's/^v//')
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TAG=$(gh release view --repo "${{ github.repository }}" --json tagName -q '.tagName')
+          else
+            TAG="${{ github.event.release.tag_name }}"
+          fi
+          VERSION=$(echo "$TAG" | sed 's/^v//')
           echo "VERSION=$VERSION"
-          echo "::set-output name=VERSION::$VERSION"
+          echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
 
       # Restore NuGet packages
       - name: Restore dependencies
