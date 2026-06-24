@@ -9,7 +9,7 @@ namespace AISIS100;
 public class ChapterGShearWebCripplingTorsion
 {
     private static readonly IList<WebCripplingParameters> TableG5__2Data;
-    
+
     public static SafetyResistanceFactors SafetyResistanceFactorsForShear = new()
     {
         ASD = 1.67,
@@ -108,8 +108,18 @@ public class ChapterGShearWebCripplingTorsion
         return Fcr;
     }
 
-    public static double EqG5__1(double C, double t, double Fy, double theta, double Cr, double R, double Cn, double N, double Ch,
-        double h, Output? output = null)
+    public static double EqG5__1(
+        double C,
+        double t,
+        double Fy,
+        double theta,
+        double Cr,
+        double R,
+        double Cn,
+        double N,
+        double Ch,
+        double h,
+        Output? output = null)
 
     {
         var Pn = C * Math.Pow(t, 2.0) * Fy * Math.Sin(theta * (2 * Math.PI) / 360.0) * (1 - Cr * Math.Sqrt(R / t)) *
@@ -118,8 +128,61 @@ public class ChapterGShearWebCripplingTorsion
         return Pn;
     }
 
-    public static (double C, double Cr, double Cn, double Ch, double Omegaw, double PhiwLrfd, double PhiwLsd) TableG5__2(SupportAndFlangeConditions supportAndFlangeConditions,
-        LoadCases loadCases, double R, double t, Output? output = null)
+    public static double EqG7_1__1(double Fwy, double Ac, Output? output = null)
+    {
+        var Pn = Fwy * Ac;
+        output?.AddResult("Pn", Pn, "Eq.G7.1-1");
+        return Pn;
+    }
+
+    public static double EqG7_1__2(double t, double As, Output? output = null)
+    {
+        var Ac = 18 * t * t + As;
+        output?.AddResult("Ac", Ac, "Eq.G7.1-2");
+        return Ac;
+    }
+
+    public static double EqG7_1__3(double t, double As, Output? output = null)
+    {
+        var Ac = 18 * t * t + As;
+        output?.AddResult("Ac", Ac, "Eq.G7.1-3");
+        return Ac;
+    }
+
+    public static double EqG7_1__4(double t, double b1, double As, Output? output = null)
+    {
+        var Ab = b1 * t + As;
+        output?.AddResult("Ab", Ab, "Eq.G7.1-4");
+        return Ab;
+    }
+
+    public static double EqG7_1__5(double t, double b2, double As, Output? output = null)
+    {
+        var Ab = b2 * t + As;
+        output?.AddResult("Ab", Ab, "Eq.G7.1-5");
+        return Ab;
+    }
+
+    public static double EqG7_1__6(double t, double Lst, Output? output = null)
+    {
+        var b1 = Math.Max(25 * t * (0.0024 * Lst / t + 0.72), 25 * t);
+        output?.AddResult("b1", b1, "Eq.G7.1-6");
+        return b1;
+    }
+
+    public static double EqG7_1__7(double t, double Lst, Output? output = null)
+    {
+        var b2 = Math.Max(12 * t * (0.0044 * Lst / t + 0.83), 12 * t);
+        output?.AddResult("b2", b2, "Eq.G7.1-7");
+        return b2;
+    }
+
+    public static (double C, double Cr, double Cn, double Ch, double Omegaw, double PhiwLrfd, double PhiwLsd) TableG5__2(
+        SupportAndFlangeConditions supportAndFlangeConditions,
+        LoadCases loadCases,
+        double R,
+        double t,
+        Output? output = null)
     {
         foreach (var row in TableG5__2Data)
         {
@@ -158,8 +221,17 @@ public class ChapterGShearWebCripplingTorsion
     }
 
 
-    public static double AvailableWebCripplingStrengthPn(double t, double Fy, double theta, double R, double N, double h, SupportAndFlangeConditions supportAndFlangeConditions, LoadCases loadCases,
-        string designMethod, Output? output = null)
+    public static double AvailableWebCripplingStrengthPn(
+        double t,
+        double Fy,
+        double theta,
+        double R,
+        double N,
+        double h,
+        SupportAndFlangeConditions supportAndFlangeConditions,
+        LoadCases loadCases,
+        string designMethod,
+        Output? output = null)
     {
         var (C, Cr, Cn, Ch, Oemgaw, PhiwLrfd, PhiwLsd) = TableG5__2(supportAndFlangeConditions, loadCases, R, t, output);
 
