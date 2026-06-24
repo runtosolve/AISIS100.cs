@@ -165,14 +165,14 @@ public class ChapterGShearWebCripplingTorsion
 
     public static double EqG7_1__6(double t, double Lst, Output? output = null)
     {
-        var b1 = Math.Max(25 * t * (0.0024 * Lst / t + 0.72), 25 * t);
+        var b1 = Math.Min(25 * t * (0.0024 * Lst / t + 0.72), 25 * t);
         output?.AddResult("b1", b1, "Eq.G7.1-6");
         return b1;
     }
 
     public static double EqG7_1__7(double t, double Lst, Output? output = null)
     {
-        var b2 = Math.Max(12 * t * (0.0044 * Lst / t + 0.83), 12 * t);
+        var b2 = Math.Min(12 * t * (0.0044 * Lst / t + 0.83), 12 * t);
         output?.AddResult("b2", b2, "Eq.G7.1-7");
         return b2;
     }
