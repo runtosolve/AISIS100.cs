@@ -17,6 +17,13 @@ public class ChapterGShearWebCripplingTorsion
         LSD = 0.75,
     };
 
+    public static SafetyResistanceFactors SafetyResistanceFactorsForBearingStiffeners = new()
+    {
+        ASD = 2.0,
+        LRFD = 0.85,
+        LSD = 0.80
+    };
+
     static ChapterGShearWebCripplingTorsion()
     {
         TableG5__2Data = new ChapterGShearWebCripplingTorsion().InitializeTableG5__2().ToImmutableList();
